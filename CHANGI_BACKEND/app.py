@@ -1,39 +1,41 @@
 from flask import Flask, request, jsonify
 import openai
+import json
 
 app = Flask(__name__)
 
-# Set up OpenAI API key (replace with your actual OpenAI API key)
-openai.api_key = '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'
+# Load API configurations
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
-# Route to process the transcribed text and send it to ChatGPT
-@app.route('/process-voice', methods=['POST'])
-def process_voice():
-    # Get the transcribed text from the frontend
-    data = request.get_json()  # Get the JSON data sent by the frontend
-    transcribed_text = data.get('transcribed_text')  # Extract the transcribed text
+openai.api_key = config["api_key"]
 
-    # Check if transcribed_text is provided
+@app.route('/process-navigation', methods=['POST'])
+def process_navigation():
+    # Receive transcribed text from the request
+    data = request.get_json()
+    transcribed_text = data.get('transcribed_text')
+    
     if not transcribed_text:
         return jsonify({'error': 'No transcribed text provided'}), 400
 
-    # Send the transcribed text to ChatGPT for a response
+    # Send transcribed text to ChatGPT for a response
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",  # You can also use GPT-4 or other models
-            prompt=transcribed_text,
-            max_tokens=150,  # Adjust the token limit based on your needs
-            n=1,  # Number of completions to generate
-            stop=None,  # No stop sequence required
-            temperature=0.7  # Adjust for creativity (lower is less creative, higher is more creative)
+        response = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": transcribed_text}
+            ],
+            max_tokens=150,
+            temperature=0.7
         )
+        
+        # Extract response content
+        content = response['choices'][0]['message']['content']
 
-        # Extract the response from ChatGPT
-        gpt_response = response.choices[0].text.strip()
-
-        # Return the response to the frontend
+        # Send response back to frontend
         return jsonify({
-            'response_text': gpt_response  # Send ChatGPT's response back to the frontend
+            'response_text': content
         })
 
     except Exception as e:

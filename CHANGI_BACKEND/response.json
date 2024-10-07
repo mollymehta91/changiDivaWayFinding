@@ -1,0 +1,30 @@
+{
+    "id": "chatcmpl-AFcFRPKefYt2l7JQXUpfUvqzUxDpi",
+    "object": "chat.completion",
+    "created": 1728285309,
+    "model": "gpt-4o-mini-2024-07-18",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Navigating an airport can be straightforward if you follow these steps:\n\n1. **Before You Go:**\n   - **Check Your Flight Information:** Confirm your flight details (departure time, terminal, gate).\n   - **Pack Wisely:** Familiarize yourself with TSA regulations regarding liquids, electronics, and prohibited items.\n\n2. **Arriving at the Airport:**\n   - **Transportation:** Decide how you will get to the airport (car, taxi, shuttle, public transportation).\n   - **Arrival...",
+          "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "length"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 16,
+      "completion_tokens": 100,
+      "total_tokens": 116,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "system_fingerprint": "fp_f85bea6784"
+  }  
