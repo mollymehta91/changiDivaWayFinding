@@ -1,30 +1,50 @@
 {
-    "id": "chatcmpl-AFcFRPKefYt2l7JQXUpfUvqzUxDpi",
-    "object": "chat.completion",
-    "created": 1728285309,
-    "model": "gpt-4o-mini-2024-07-18",
-    "choices": [
-      {
-        "index": 0,
-        "message": {
-          "role": "assistant",
-          "content": "Navigating an airport can be straightforward if you follow these steps:\n\n1. **Before You Go:**\n   - **Check Your Flight Information:** Confirm your flight details (departure time, terminal, gate).\n   - **Pack Wisely:** Familiarize yourself with TSA regulations regarding liquids, electronics, and prohibited items.\n\n2. **Arriving at the Airport:**\n   - **Transportation:** Decide how you will get to the airport (car, taxi, shuttle, public transportation).\n   - **Arrival...",
-          "refusal": null
+  "directions": [
+    {
+      "from": "Samsonite",
+      "to": "Oakley",
+      "instructions": [
+        {
+          "text": "Start at Samsonite.",
+          "direction": "straight"
         },
-        "logprobs": null,
-        "finish_reason": "length"
-      }
-    ],
-    "usage": {
-      "prompt_tokens": 16,
-      "completion_tokens": 100,
-      "total_tokens": 116,
-      "prompt_tokens_details": {
-        "cached_tokens": 0
-      },
-      "completion_tokens_details": {
-        "reasoning_tokens": 0
-      }
-    },
-    "system_fingerprint": "fp_f85bea6784"
-  }  
+        {
+          "text": "Walk clockwise along the circular path.",
+          "direction": "straight"
+        },
+        {
+          "text": "Pass Tiger Street Lab on your right.",
+          "direction": "right"
+        },
+        {
+          "text": "Continue walking until you reach Lobby H near Peach Garden.",
+          "direction": "straight"
+        },
+        {
+          "text": "From Lobby H, keep walking clockwise and pass by Koi Thé and LeNu.",
+          "direction": "straight"
+        },
+        {
+          "text": "You will then see Jewel Manulife Sky Nets on your left.",
+          "direction": "left"
+        },
+        {
+          "text": "Continue towards Lobby E, passing TAG Heuer and TUDOR.",
+          "direction": "straight"
+        },
+        {
+          "text": "Keep walking past Adidas and AGATHA until you reach Lobby F.",
+          "direction": "straight"
+        },
+        {
+          "text": "From Lobby F, continue walking clockwise, passing Polo Ralph Lauren.",
+          "direction": "straight"
+        },
+        {
+          "text": "Finally, you will reach Oakley, which is near Lobby F.",
+          "direction": "straight"
+        }
+      ]
+    }
+  ]
+}
