@@ -5,14 +5,16 @@ export default function NavigationList ({ data }: any) {
 
     return (
     <ScrollView style={styles.navigationContentList}>
-        {
-            data.map((item: any, index: number) => {             
-                console.log(item)
-                return (
-                    <NavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>
-                )
-            })
-        }
+        <View style={styles.listContainer}>
+            {
+                data.map((item: any, index: number) => {             
+                    console.log(item)
+                    return (
+                        <NavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>   
+                    )
+                })
+            }
+        </View>
     </ScrollView>
     )
 }
@@ -20,9 +22,13 @@ export default function NavigationList ({ data }: any) {
 const styles = StyleSheet.create({
     navigationContentList: {
         marginVertical: 10,
+        paddingBottom: 10,
         marginRight: 100,
         flexDirection: 'column',
         paddingRight: 50,
-        width: '100%'
+        width: '100%',
+    },
+    listContainer: {
+        paddingBottom: 180
     }
 })
