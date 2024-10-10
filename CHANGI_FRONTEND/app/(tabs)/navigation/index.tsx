@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import NavigationList from '@/components/navigation/NavigationList';
 import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
@@ -10,16 +10,21 @@ export default function NavigationScreen() {
   const {
     recording,
     isLoading,
+    isSucceed,
     to,
     from,
     instructions,
+    errorMessage,
     startRecording,
     stopRecording,
   } = useAudioRecording();
   
-  // console.log('instruction in index: ', instructions);
-  // console.log('from in index: ', from);
-  // console.log('to in index: ', to);
+  // const [modalVisible, setModalVisible] = useState(false);
+
+  // // Show the modal if there's an error message
+  // if (isSucceed && errorMessage) {
+  //   setModalVisible(true);
+  // }
 
   return (
     <View style={styles.container}>
@@ -67,6 +72,27 @@ export default function NavigationScreen() {
           </View>
         </View>
       ) : null}
+
+      {/* Modal for error message */}
+      {/* <Modal
+        transparent={true}
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.errorMessage}>{errorMessage}</Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal> */}
+      
     </View>
   );
 };
@@ -100,5 +126,32 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#C8C8C8',
     flexDirection: 'column',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  errorMessage: {
+    marginBottom: 20,
+    fontSize: 18,
+    color: 'red',
+  },
+  closeButton: {
+    padding: 10,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
