@@ -1,50 +1,36 @@
 {
   "directions": [
-    {
-      "from": "Samsonite",
-      "to": "Oakley",
-      "instructions": [
-        {
-          "text": "Start at Samsonite.",
-          "direction": "straight"
-        },
-        {
-          "text": "Walk clockwise along the circular path.",
-          "direction": "straight"
-        },
-        {
-          "text": "Pass Tiger Street Lab on your right.",
-          "direction": "right"
-        },
-        {
-          "text": "Continue walking until you reach Lobby H near Peach Garden.",
-          "direction": "straight"
-        },
-        {
-          "text": "From Lobby H, keep walking clockwise and pass by Koi Thé and LeNu.",
-          "direction": "straight"
-        },
-        {
-          "text": "You will then see Jewel Manulife Sky Nets on your left.",
-          "direction": "left"
-        },
-        {
-          "text": "Continue towards Lobby E, passing TAG Heuer and TUDOR.",
-          "direction": "straight"
-        },
-        {
-          "text": "Keep walking past Adidas and AGATHA until you reach Lobby F.",
-          "direction": "straight"
-        },
-        {
-          "text": "From Lobby F, continue walking clockwise, passing Polo Ralph Lauren.",
-          "direction": "straight"
-        },
-        {
-          "text": "Finally, you will reach Oakley, which is near Lobby F.",
-          "direction": "straight"
-        }
-      ]
-    }
-  ]
+      {
+          "from": "TUMI",
+          "instructions": [
+              {
+                  "direction": "straight",
+                  "mins": "2",
+                  "text": "Begin at Tumi, continue walking straight alongside the shops."
+              },
+              {
+                  "direction": "straight",
+                  "mins": "3",
+                  "text": "Pass the Garrett Popcorn Shops and Discover Singapore nearby."
+              },
+              {
+                  "direction": "straight",
+                  "mins": "2",
+                  "text": "Keep going straight past Pontian Wanton Noodles."
+              },
+              {
+                  "direction": "right",
+                  "mins": "1",
+                  "text": "On your right, Beyond the Vines and The Cocoa Trees are visible."
+              },
+              {
+                  "direction": "straight",
+                  "mins": "2",
+                  "text": "Proceed until you arrive at Starbucks, located between Beyond the Vines and Sandbar."
+              }
+          ],
+          "to": "Starbucks"
+      }
+  ],
+  "isSucceed": true
 }
