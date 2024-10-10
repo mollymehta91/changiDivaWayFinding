@@ -52,8 +52,7 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
                             for instruction in directions_data["directions"][0]["instructions"]
                         ]
 
-                        # Create the final response format
-                        # `isSucceed` is for the frontend processing
+                        # Create the final response format with `isSucceed` set to True
                         formatted_response = {
                             "isSucceed": True,
                             "directions": [
