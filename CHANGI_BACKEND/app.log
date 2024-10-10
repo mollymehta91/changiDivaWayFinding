@@ -1,0 +1,188 @@
+2024-10-09 12:49:35,511 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-09 12:49:35,511 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-10-09 12:49:35,511 - werkzeug - INFO -  * Restarting with stat
+2024-10-09 12:49:36,801 - werkzeug - WARNING -  * Debugger is active!
+2024-10-09 12:49:36,810 - werkzeug - INFO -  * Debugger PIN: 790-203-770
+2024-10-09 12:49:51,881 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-09 12:49:51,881 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-10-09 12:49:51,894 - werkzeug - INFO -  * Restarting with stat
+2024-10-09 12:49:53,080 - werkzeug - WARNING -  * Debugger is active!
+2024-10-09 12:49:53,080 - werkzeug - INFO -  * Debugger PIN: 790-203-770
+2024-10-09 12:49:57,630 - werkzeug - INFO - 127.0.0.1 - - [09/Oct/2024 12:49:57] "[31m[1mPOST /process-transcribed-text HTTP/1.1[0m" 401 -
+2024-10-09 12:52:15,705 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-09 12:52:15,705 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-10-09 12:52:15,709 - werkzeug - INFO -  * Restarting with stat
+2024-10-09 12:52:16,999 - werkzeug - WARNING -  * Debugger is active!
+2024-10-09 12:52:17,009 - werkzeug - INFO -  * Debugger PIN: 790-203-770
+2024-10-09 12:53:19,549 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-09 12:53:19,549 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-10-09 12:53:19,554 - werkzeug - INFO -  * Restarting with stat
+2024-10-09 12:53:21,099 - werkzeug - WARNING -  * Debugger is active!
+2024-10-09 12:53:21,114 - werkzeug - INFO -  * Debugger PIN: 790-203-770
+2024-10-09 12:53:25,209 - werkzeug - INFO - 127.0.0.1 - - [09/Oct/2024 12:53:25] "[31m[1mPOST /process-transcribed-text HTTP/1.1[0m" 401 -
+2024-10-09 12:53:44,140 - __main__ - INFO - Received transcribed_text: directions from oakley to furla, language: English
+2024-10-09 12:53:44,140 - fetch_data - INFO - Fetching data for input: directions from oakley to furla, assistant_id: asst_aGg0b6Rb0eBtTB7q4qNSIzQY, vector_id: vs_qVwFmxmLAq3pvFARdXi9yXtu, language: English
+2024-10-09 12:53:49,240 - fetch_data - INFO - Received response: To navigate from Oakley to Furla within the airport, follow these clear, step-by-step directions:
+
+1. **Start at Oakley**: You are located in **Lobby J**. 
+
+2. **Exit Oakley**: Depart from the Oakley store and head towards the main walkway of Lobby J.
+
+3. **Head Towards Tiger Street Lab**: Walk straight ahead and keep an eye out for **Tiger Street Lab**, which will be on your right.
+
+4. **Pass by Tiger Street Lab**: Continue walking straight past Tiger Street Lab. 
+
+5. **Proceed to Samsonite**: After passing Tiger Street Lab, you will see **Samsonite** on your right-hand side. Walk past it.
+
+6. **Beyond the Vines**: Continuing down the main path, look for **Beyond the Vines** on the right. Walk past this store as well.
+
+7. **Reach Peach Garden**: After Beyond the Vines, you’ll come across **Peach Garden**. Make sure to walk past this establishment too.
+
+8. **Continue to RotiBoy**: Next, you will see **RotiBoy** on your left side. Keep moving straight ahead.
+
+9. **Enter Lobby H**: As you progress, you will arrive at **Lobby H**. You'll transition into this lobby area, continuing straight through it.
+
+10. **Visit Koi Thé**: Once in Lobby H, look for **Koi Thé** on your right side. Walk past this store.
+
+11. **Proceed to LeNu**: Continue straight until you reach **LeNu**. Walk past this store as well.
+
+12. **Reach Rock Gifts**: Soon, you will find **Rock Gifts** directly ahead. Continue walking straight ahead.
+
+13. **TAG Heuer**: After passing Rock Gifts, look for **TAG Heuer** on your left side and pass this store.
+
+14. **TUDOR**: Finally, just after TAG Heuer, you will find **TUDOR** on your left. Walk past it, and you are now very close.
+
+15. **Arrive at Furla**: Furla is located in the eastern section, just past TUDOR. It should be easily visible.  
+
+Once you see Furla, congratulations! You have reached your destination from Oakley.
+2024-10-09 12:53:49,240 - __main__ - INFO - Returning response_text: To navigate from Oakley to Furla within the airport, follow these clear, step-by-step directions:
+
+1. **Start at Oakley**: You are located in **Lobby J**. 
+
+2. **Exit Oakley**: Depart from the Oakley store and head towards the main walkway of Lobby J.
+
+3. **Head Towards Tiger Street Lab**: Walk straight ahead and keep an eye out for **Tiger Street Lab**, which will be on your right.
+
+4. **Pass by Tiger Street Lab**: Continue walking straight past Tiger Street Lab. 
+
+5. **Proceed to Samsonite**: After passing Tiger Street Lab, you will see **Samsonite** on your right-hand side. Walk past it.
+
+6. **Beyond the Vines**: Continuing down the main path, look for **Beyond the Vines** on the right. Walk past this store as well.
+
+7. **Reach Peach Garden**: After Beyond the Vines, you’ll come across **Peach Garden**. Make sure to walk past this establishment too.
+
+8. **Continue to RotiBoy**: Next, you will see **RotiBoy** on your left side. Keep moving straight ahead.
+
+9. **Enter Lobby H**: As you progress, you will arrive at **Lobby H**. You'll transition into this lobby area, continuing straight through it.
+
+10. **Visit Koi Thé**: Once in Lobby H, look for **Koi Thé** on your right side. Walk past this store.
+
+11. **Proceed to LeNu**: Continue straight until you reach **LeNu**. Walk past this store as well.
+
+12. **Reach Rock Gifts**: Soon, you will find **Rock Gifts** directly ahead. Continue walking straight ahead.
+
+13. **TAG Heuer**: After passing Rock Gifts, look for **TAG Heuer** on your left side and pass this store.
+
+14. **TUDOR**: Finally, just after TAG Heuer, you will find **TUDOR** on your left. Walk past it, and you are now very close.
+
+15. **Arrive at Furla**: Furla is located in the eastern section, just past TUDOR. It should be easily visible.  
+
+Once you see Furla, congratulations! You have reached your destination from Oakley.
+2024-10-09 12:53:49,241 - werkzeug - INFO - 127.0.0.1 - - [09/Oct/2024 12:53:49] "POST /process-transcribed-text HTTP/1.1" 200 -
+2024-10-09 12:54:21,154 - __main__ - INFO - Received transcribed_text: directions from tudor to tag heuer, language: English
+2024-10-09 12:54:21,155 - fetch_data - INFO - Fetching data for input: directions from tudor to tag heuer, assistant_id: asst_aGg0b6Rb0eBtTB7q4qNSIzQY, vector_id: vs_qVwFmxmLAq3pvFARdXi9yXtu, language: English
+2024-10-09 12:54:27,767 - fetch_data - INFO - Received response: Here are step-by-step directions to navigate from Oakley to Furla within the airport:
+
+1. **Starting Point: Oakley**
+   - Begin your journey at Oakley, which is located in **Lobby J**.
+
+2. **Head Towards Lobby H**
+   - Exit Oakley and walk straight ahead towards the main concourse. Keep an eye out for **Tiger Street Lab** on your left.
+
+3. **Pass by Tiger Street Lab**
+   - Continue walking past Tiger Street Lab on your left side as you move towards Lobby H.
+
+4. **Go Past Samsonite**
+   - After passing Tiger Street Lab, you’ll see **Samsonite** on your right side. Walk forward a bit more.
+
+5. **Next Stop: Beyond the Vines**
+   - Keep moving straight ahead, and you will soon find **Beyond the Vines** on your left.
+
+6. **Continue to Peach Garden**
+   - Proceed past Beyond the Vines, and you will spot **Peach Garden** further ahead on your left.
+
+7. **Make Your Way to RotiBoy**
+   - Walk a little further and you will see **RotiBoy** on your left. 
+
+8. **Reach Lobby H**
+   - Keep walking straight. You will reach **Lobby H**. You may notice several shops in this area.
+
+9. **On to Koi Thé**
+   - After passing through Lobby H, look for **Koi Thé** on your right side as you approach the next set of shops.
+
+10. **Pass by LeNu**
+   - Continuing along, you’ll come across **LeNu** on your left side. 
+
+11. **Approaching Rock Gifts**
+   - Keep walking straight, and soon you'll see **Rock Gifts** on your left.
+
+12. **Next to TAG Heuer**
+   - Continue ahead, and you will reach **TAG Heuer** on your right.
+
+13. **Final Steps to TUDOR**
+   - After TAG Heuer, keep walking until you see **TUDOR** on your right, which indicates you're getting very close.
+
+14. **Arriving at Furla**
+   - Finally, walk straight ahead a little more, and **Furla** will be located in the eastern section on the right side just ahead of you.
+
+You will have successfully navigated from Oakley to Furla, passing various notable shops along the way. Enjoy your shopping!
+2024-10-09 12:54:27,769 - __main__ - INFO - Returning response_text: Here are step-by-step directions to navigate from Oakley to Furla within the airport:
+
+1. **Starting Point: Oakley**
+   - Begin your journey at Oakley, which is located in **Lobby J**.
+
+2. **Head Towards Lobby H**
+   - Exit Oakley and walk straight ahead towards the main concourse. Keep an eye out for **Tiger Street Lab** on your left.
+
+3. **Pass by Tiger Street Lab**
+   - Continue walking past Tiger Street Lab on your left side as you move towards Lobby H.
+
+4. **Go Past Samsonite**
+   - After passing Tiger Street Lab, you’ll see **Samsonite** on your right side. Walk forward a bit more.
+
+5. **Next Stop: Beyond the Vines**
+   - Keep moving straight ahead, and you will soon find **Beyond the Vines** on your left.
+
+6. **Continue to Peach Garden**
+   - Proceed past Beyond the Vines, and you will spot **Peach Garden** further ahead on your left.
+
+7. **Make Your Way to RotiBoy**
+   - Walk a little further and you will see **RotiBoy** on your left. 
+
+8. **Reach Lobby H**
+   - Keep walking straight. You will reach **Lobby H**. You may notice several shops in this area.
+
+9. **On to Koi Thé**
+   - After passing through Lobby H, look for **Koi Thé** on your right side as you approach the next set of shops.
+
+10. **Pass by LeNu**
+   - Continuing along, you’ll come across **LeNu** on your left side. 
+
+11. **Approaching Rock Gifts**
+   - Keep walking straight, and soon you'll see **Rock Gifts** on your left.
+
+12. **Next to TAG Heuer**
+   - Continue ahead, and you will reach **TAG Heuer** on your right.
+
+13. **Final Steps to TUDOR**
+   - After TAG Heuer, keep walking until you see **TUDOR** on your right, which indicates you're getting very close.
+
+14. **Arriving at Furla**
+   - Finally, walk straight ahead a little more, and **Furla** will be located in the eastern section on the right side just ahead of you.
+
+You will have successfully navigated from Oakley to Furla, passing various notable shops along the way. Enjoy your shopping!
+2024-10-09 12:54:27,769 - werkzeug - INFO - 127.0.0.1 - - [09/Oct/2024 12:54:27] "POST /process-transcribed-text HTTP/1.1" 200 -
