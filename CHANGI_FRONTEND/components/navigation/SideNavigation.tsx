@@ -1,39 +1,61 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import NavigationContent from "./NavigationContent";
-import Cross from "@/icons/Cross";
-import NavigationList from "./NavigationList";
+import SideNavigationList from "./SideNavigationList";
+import { useState } from "react";
+import CloseSideNavigationButton from "../button/CloseSideNavigationButton";
+import OpenSideNavigationButton from "../button/OpenSideNavigationButton";
 
-export const SideNavigationHeader = ({subtitle, title, icon}: any) => {
+export const SideNavigationHeader = ({children, subtitle, title}: any) => {
     return (
         <View style={styles.sideHeader}>
             <View style={styles.sideHeaderTitle}>
                 <Text style={{
-                fontFamily: 'Inter_18pt-Medium',
-                fontSize: 18,
-                color: 'black',
-                opacity: 0.7
+                    fontFamily: 'Inter_18pt-Medium',
+                    fontSize: 18,
+                    color: 'black',
+                    opacity: 0.7
                 }}>
-                { subtitle }
+                    { subtitle }
                 </Text>
                 <Text style={{
-                fontFamily: 'Inter_24pt-Bold',
-                fontSize: 24,
-                color: 'black',
+                    fontFamily: 'Inter_24pt-Bold',
+                    fontSize: 24,
+                    color: 'black',
                 }}>
-                { title }
-                </Text>  
+                    { title }
+                </Text>
             </View>
-            { icon?? null }
+            {children}
         </View>
     )
 }
 
 export default function SideNavigation ({ data, from, to }: any) {
 
+    const [isOpen, setIsOpen] = useState(false);
+
+
+    const openSideNavigation = () => {
+        setIsOpen(true);
+    }
+
+    const closeSideNavigation = () => {
+        setIsOpen(false);
+    }
+
+
     return (
-        <View style={styles.sideNavigationContainer}>
+        <View style={
+            {
+                ...styles.sideNavigationContainer,
+                height: isOpen ? '50%' : '11%'
+            }
+        }>
             <View>
-                <SideNavigationHeader subtitle={"Direction to"} title={`${ from } | ${ to }`} icon={<Cross />} />
+                <SideNavigationHeader 
+                subtitle={"Direction to"} 
+                title={`${ from } | ${ to }`}>
+                    { isOpen ? <CloseSideNavigationButton onPress={closeSideNavigation} /> : <OpenSideNavigationButton onPress={openSideNavigation} /> }
+                </SideNavigationHeader>
                 <View style={styles.sideBody}>
                     <Text style={{
                         fontFamily: 'Inter_18pt-Medium',
@@ -43,7 +65,7 @@ export default function SideNavigation ({ data, from, to }: any) {
                     }}>
                         Steps
                     </Text>
-                    <NavigationList data={data} />
+                    <SideNavigationList data={data} />
                 </View>
             </View>
         </View>
@@ -55,7 +77,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        height: '50%'
       },
       sideBody: {
         flexDirection: 'column',

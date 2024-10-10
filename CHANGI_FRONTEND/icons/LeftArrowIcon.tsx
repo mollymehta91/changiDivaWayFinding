@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
-function LeftArrow() {
+function LeftArrowIcon() {
   return (
     <Svg
       width={29}
@@ -17,4 +17,4 @@ function LeftArrow() {
   )
 }
 
-export default LeftArrow
+export default LeftArrowIcon

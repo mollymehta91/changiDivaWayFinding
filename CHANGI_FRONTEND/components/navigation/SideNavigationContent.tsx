@@ -1,6 +1,6 @@
-import LeftArrow from "@/icons/LeftArrow";
-import RightArrow from "@/icons/RightArrow";
-import UpArrow from "@/icons/UpArrow";
+import LeftArrowIcon from "@/icons/LeftArrowIcon";
+import RightArrowIcon from "@/icons/RightArrowIcon";
+import UpArrowIcon from "@/icons/UpArrowIcon";
 import { StyleSheet, View, Text } from "react-native";
 import VoiceButton from "../button/VoiceButton";
 
@@ -9,38 +9,40 @@ type NavigationContentProps = {
     pathDirection: string
 }
 
-const NavigationContentPath = ({pathDirection}: {pathDirection: string}) => {
+const SideNavigationContentPath = ({pathDirection}: {pathDirection: string}) => {
     
     if (pathDirection === "straight") {
       return (
-          <UpArrow />
+          <UpArrowIcon />
       )  
     }
 
     if (pathDirection === "left") {
         return (
-            <LeftArrow />
+            <LeftArrowIcon />
         )
     }
 
     if (pathDirection === "right") {
         return (
-            <RightArrow />
+            <RightArrowIcon />
         )
     }
 }
 
-export default function NavigationContent ({instructions, pathDirection}: NavigationContentProps) {
+export default function SideNavigationContent ({instructions, pathDirection}: NavigationContentProps) {
 
     return (
         <View style={styles.container}>
             <View style={styles.pathContainer}>
-                <NavigationContentPath pathDirection={pathDirection} />
+                <SideNavigationContentPath pathDirection={pathDirection} />
             </View>
             
             <View style={styles.body}>
-                <Text style={styles.bodyText}>{instructions}</Text>
-                <VoiceButton audioUri={instructions}/>
+                <View style={styles.bodyContent}>
+                    <Text style={styles.bodyText}>{instructions}</Text>
+                    <VoiceButton audioUri={instructions}/>
+                </View>
             </View>
         </View>
     )
@@ -50,10 +52,10 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         marginVertical: 15,
+        height: 70,
     },
     pathContainer: {
         width: 70,
-        height: 70,
         borderRadius: 3,
         backgroundColor: '#D9D9D9',
         alignItems: 'center',
@@ -61,14 +63,21 @@ const styles = StyleSheet.create({
     },
     body: {
         flexDirection: 'column',
+        flexWrap: 'wrap',
         justifyContent: 'center',
+        marginLeft: 30,
         flex: 1,
-        marginLeft: 30
+    },
+    bodyContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     bodyText: {
         fontFamily: 'Inter_18pt-Medium',
         fontSize: 15,
         color: 'black',
-        marginBottom: 5
+        width: 200,
+        flexWrap: 'wrap',
     }
 })

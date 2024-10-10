@@ -1,15 +1,15 @@
 import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
-import NavigationList from '@/components/navigation/NavigationList';
+import SideNavigationList from '@/components/navigation/SideNavigationList';
 import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
 import { useState } from 'react';
 import { Image } from 'expo-image';
-import Cross from '@/icons/Cross';
+import Cross from '@/icons/CrossIcon';
 import SideNavigation, { SideNavigationHeader } from '@/components/navigation/SideNavigation';
 
 export default function NavigationScreen() {
-  const data = response["directions"][0]["instructions"];
+  const data = response["directions"][0];
   const {
     recording,
     isLoading,
@@ -45,8 +45,9 @@ export default function NavigationScreen() {
         />
       </View>
 
-      {/* Check if instructions is not empty before rendering */}
-      {instructions && instructions.length > 0 ? (
+      <SideNavigation data={data.instructions} from={data.from} to={data.to} />
+
+      {/* {instructions && instructions.length > 0 ? (
         <SideNavigation 
         data={instructions}
         from={from}
@@ -54,7 +55,7 @@ export default function NavigationScreen() {
         />
       ) : (
         <SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />
-      )}
+      )} */}
 
       {/* Modal for error message */}
       {/* <Modal

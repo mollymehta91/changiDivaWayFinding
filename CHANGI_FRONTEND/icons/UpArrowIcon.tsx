@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
-function UpArrow() {
+function UpArrowIcon() {
   return (
     <Svg
       width={24}
@@ -17,4 +17,4 @@ function UpArrow() {
   )
 }
 
-export default UpArrow
+export default UpArrowIcon

@@ -1,6 +1,6 @@
 import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
-const Microphone = (props: SvgProps) => (
+const MicrophoneIcon = (props: SvgProps) => (
   <Svg
     width={30}
     height={30}
@@ -13,4 +13,4 @@ const Microphone = (props: SvgProps) => (
     />
   </Svg>
 )
-export default Microphone
+export default MicrophoneIcon

@@ -1,6 +1,6 @@
 import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
-const Cross = (props: SvgProps) => (
+const CrossIcon = (props: SvgProps) => (
   <Svg
     width={20}
     height={20}
@@ -13,4 +13,4 @@ const Cross = (props: SvgProps) => (
     />
   </Svg>
 )
-export default Cross
+export default CrossIcon

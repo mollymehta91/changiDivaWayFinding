@@ -1,15 +1,15 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import NavigationContent from "./NavigationContent";
+import SideNavigationContent from "./SideNavigationContent";
 
-export default function NavigationList ({ data }: any) {
+export default function SideNavigationList ({ data }: any) {
 
     return (
-    <ScrollView style={styles.navigationContentList}>
+    <ScrollView style={styles.navigationContentList} showsVerticalScrollIndicator={false}>
         <View style={styles.listContainer}>
             {
                 data.map((item: any, index: number) => {             
                     return (
-                        <NavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>   
+                        <SideNavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>   
                     )
                 })
             }
@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginRight: 100,
         flexDirection: 'column',
-        paddingRight: 50,
         width: '100%',
     },
     listContainer: {

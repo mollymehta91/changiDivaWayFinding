@@ -1,8 +1,8 @@
 import {ActivityIndicator, GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, { useState } from 'react';
-import Microphone from '@/icons/Microphone';
+import MicrophoneIcon from '@/icons/MicrophoneIcon';
 import useAudioRecording from '@/hooks/useAudioRecording';
-import Speaker from '@/icons/Speaker';
+import SpeakerIcon from '@/icons/SpeakerIcon';
 import * as Speech from 'expo-speech';
 import LOGGER from '@/utils/Logger';
 
@@ -25,8 +25,8 @@ const VoiceButton = ({audioUri}: any) => {
   };
 
   return (
-    <TouchableOpacity style={styles.cont} onPress={playSound}>
-        <Speaker />
+    <TouchableOpacity style={styles.container} onPress={playSound}>
+        <SpeakerIcon />
     </TouchableOpacity>
   );
 };
@@ -34,10 +34,10 @@ const VoiceButton = ({audioUri}: any) => {
 export default VoiceButton;
 
 const styles = StyleSheet.create({
-  cont: {
+  container: {
     backgroundColor: "black",
-    height: 30,
-    width: 30,
+    width: 20,
+    height: 20,
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',

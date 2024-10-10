@@ -1,6 +1,6 @@
 import {ActivityIndicator, GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import Microphone from '@/icons/Microphone';
+import Microphone from '@/icons/MicrophoneIcon';
 
 import {
   BallIndicator,
