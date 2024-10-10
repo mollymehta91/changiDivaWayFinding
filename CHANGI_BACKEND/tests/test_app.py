@@ -1,26 +1,24 @@
-import pytest
+import unittest
 from app import app
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
+class AppTestCase(unittest.TestCase):
+    def setUp(self):
+        self.app = app.test_client()
+        self.app.testing = True
 
-def test_no_transcribed_text(client):
-    response = client.post('/process-navigation', json={})
-    json_data = response.get_json()
-    assert response.status_code == 400
-    assert 'error' in json_data
+    def test_process_transcribed_text_no_text(self):
+        response = self.app.post('/process-transcribed-text', json={})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("No transcribed text provided", response.get_data(as_text=True))
 
-def test_process_navigation(client, mocker):
-    mocker.patch('app.openai.ChatCompletion.create', return_value={
-        'choices': [{'message': {'content': 'Follow signs to Gate B12.'}}]
-    })
+    def test_process_transcribed_text_invalid_key(self):
+        response = self.app.post('/process-transcribed-text', json={'transcribed_text': 'Hello'}, headers={'x-api-key': 'wrong_key'})
+        self.assertEqual(response.status_code, 401)
+        self.assertIn("Unauthorized access", response.get_data(as_text=True))
 
-    data = {'transcribed_text': 'Where is Gate B12?'}
-    response = client.post('/process-navigation', json=data)
-    json_data = response.get_json()
-    assert response.status_code == 200
-    assert 'response_text' in json_data
-    assert json_data['response_text'] == 'Follow signs to Gate B12.'
+    def test_process_transcribed_text_success(self):
+        response = self.app.post('/process-transcribed-text', json={'transcribed_text': 'Hello'}, headers={'x-api-key': 'valid_key'})
+        self.assertEqual(response.status_code, 200)
+
+if __name__ == '__main__':
+    unittest.main()
