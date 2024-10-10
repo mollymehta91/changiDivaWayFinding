@@ -1,29 +1,23 @@
-import React, { useRef, useState, useCallback } from 'react';
-import BottomSheet, { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
-import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import NavigationList from '@/components/navigation/NavigationList';
+import response from '@/data/response.json';
+import AudioRecorderButton from '@/components/button/AudioRecorderButton';
+import AudioRecorder from '@/components/audio/AudioRecorder';
+import VoiceButton from '@/components/button/VoiceButton';
 
 export default function NavigationScreen() {
 
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const [snapPointIndex, setSnapPointIndex] = useState(1);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index)
-  }, [])
+  const data = response["directions"][0]["instructions"]
 
   return (
     <View style={styles.container}>
-      <View>
+      {/* <AudioRecorder /> */}
+      
+      <View style={styles.mapContainer}>
+        <AudioRecorderButton />
       </View>
-      <BottomSheet
-        ref={bottomSheetRef}
-        snapPoints={['50%', '100%']}
-        index={snapPointIndex}
-        onChange={handleSheetChanges}
-        enablePanDownToClose={true}
-        backgroundStyle={{ borderRadius: 10 }}
-      >
-        <BottomSheetScrollView
-          contentContainerStyle={styles.bottomSheetContainer}
+      <View style={styles.sideNavigationContainer}>
+        <View
         >
          <View style={styles.sideHeader}>
            <Text
@@ -51,179 +45,10 @@ export default function NavigationScreen() {
               fontWeight: 'bold'
             }}
             >Steps</Text>
-            <ScrollView style={styles.navigationContentList}>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                  <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                  <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                  <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-              <View style={styles.navigationContent}>
-                <View style={styles.navigationContentPicture}></View>
-                <View style={styles.navigationContentBody}>
-                <Text
-                  style={{
-                    fontFamily: 'Inter_18pt-Medium',
-                    fontSize: 15,
-                    color: 'black',
-                    marginBottom: 5
-                  }}
-                  >Walk straight along the alley into <Text style={{fontWeight: 'bold'}}>the shopping center</Text></Text>
-                  <Text>2 min</Text>
-                </View>
-              </View>
-            </ScrollView>
+            <NavigationList data={data} />
          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
+        </View>
+      </View>
     </View>
   );
 };
@@ -231,9 +56,19 @@ export default function NavigationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
     backgroundColor: 'grey',
+  },
+  mapContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    backgroundColor: 'grey',
+  },
+  sideNavigationContainer: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    width: '35%'
   },
   header: {
     fontSize: 24,
@@ -260,24 +95,4 @@ const styles = StyleSheet.create({
     borderColor: '#C8C8C8',
     flexDirection: 'column',
   },
-  navigationContent: {
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-  navigationContentPicture: {
-    width: 70,
-    height: 70,
-    borderRadius: 3,
-    backgroundColor: '#D9D9D9',
-  },
-  navigationContentBody: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: 30,
-  },
-  navigationContentList: {
-    marginVertical: 10,
-    marginRight: 100,
-    flexDirection: 'column',
-  }
 });
