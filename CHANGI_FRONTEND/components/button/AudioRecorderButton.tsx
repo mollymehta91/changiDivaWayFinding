@@ -2,6 +2,18 @@ import {ActivityIndicator, GestureResponderEvent, Image, StyleSheet, Text, Touch
 import React from 'react';
 import Microphone from '@/icons/Microphone';
 
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from 'react-native-indicators';
+
 type CallbackFunctions = ((event: GestureResponderEvent) => void) | undefined
 
 const AudioRecorderButton = ({ recording, isLoading, startRecording, stopRecording } : any) => {
@@ -9,7 +21,7 @@ const AudioRecorderButton = ({ recording, isLoading, startRecording, stopRecordi
   
   return (
     <TouchableOpacity style={styles.cont} onPress={recording ? stopRecording : startRecording}>
-        {isLoading? <ActivityIndicator size="small" color="#000" /> : <Microphone />} 
+        {isLoading? <MaterialIndicator size={30} /> : recording ? <PulseIndicator /> : <Microphone />} 
     </TouchableOpacity>
   );
 };

@@ -10,7 +10,7 @@ const AudioRecorder = () => {
     recording,
     permissionResponse,
     responseMessage,
-    audioUri,
+    // audioUri,
     isLoading,
     startRecording,
     stopRecording,
@@ -30,7 +30,7 @@ const AudioRecorder = () => {
       {responseMessage ? <Text style={styles.response}>{responseMessage}</Text> : null}
       
       {/* Add AudioPlayer here */}
-      <AudioPlayer audioUri={audioUri} />
+      {/* <AudioPlayer audioUri={audioUri} /> */}
     </View>
   );
 };

@@ -4,6 +4,9 @@ import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
 import { useState } from 'react';
+import { Image } from 'expo-image';
+import Cross from '@/icons/Cross';
+import SideNavigation, { SideNavigationHeader } from '@/components/navigation/SideNavigation';
 
 export default function NavigationScreen() {
   const data = response["directions"][0]["instructions"];
@@ -28,6 +31,11 @@ export default function NavigationScreen() {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require("@/assets/images/map.png")}
+        contentFit="cover"
+      />      
       <View style={styles.mapContainer}>
         <AudioRecorderButton 
           recording={recording}
@@ -39,39 +47,14 @@ export default function NavigationScreen() {
 
       {/* Check if instructions is not empty before rendering */}
       {instructions && instructions.length > 0 ? (
-        <View style={styles.sideNavigationContainer}>
-          <View>
-            <View style={styles.sideHeader}>
-              <Text style={{
-                fontFamily: 'Inter_18pt-Medium',
-                fontSize: 18,
-                color: 'black',
-                opacity: 0.7
-              }}>
-                Direction to
-              </Text>
-              <Text style={{
-                fontFamily: 'Inter_24pt-Bold',
-                fontSize: 24,
-                color: 'black',
-              }}>
-                { from } | { to }
-              </Text>
-            </View>
-            <View style={styles.sideBody}>
-              <Text style={{
-                fontFamily: 'Inter_18pt-Medium',
-                fontSize: 15,
-                color: 'black',
-                fontWeight: 'bold'
-              }}>
-                Steps
-              </Text>
-              <NavigationList data={instructions} />
-            </View>
-          </View>
-        </View>
-      ) : null}
+        <SideNavigation 
+        data={instructions}
+        from={from}
+        to={to}
+        />
+      ) : (
+        <SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />
+      )}
 
       {/* Modal for error message */}
       {/* <Modal
@@ -101,31 +84,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
   },
   mapContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: 'grey',
-  },
-  sideNavigationContainer: {
-    backgroundColor: 'white',
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-    height: '50%'
-  },
-  sideBody: {
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-  sideHeader: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-    borderBottomWidth: 1,
-    borderColor: '#C8C8C8',
-    flexDirection: 'column',
+    // backgroundColor: 'grey',
   },
   modalContainer: {
     flex: 1,
@@ -153,5 +117,11 @@ const styles = StyleSheet.create({
   closeButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0553',
   },
 });

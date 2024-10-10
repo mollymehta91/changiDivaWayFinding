@@ -8,7 +8,6 @@ export default function NavigationList ({ data }: any) {
         <View style={styles.listContainer}>
             {
                 data.map((item: any, index: number) => {             
-                    console.log(item)
                     return (
                         <NavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>   
                     )

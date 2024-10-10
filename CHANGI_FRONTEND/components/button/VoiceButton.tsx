@@ -1,5 +1,5 @@
 import {ActivityIndicator, GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Microphone from '@/icons/Microphone';
 import useAudioRecording from '@/hooks/useAudioRecording';
 import Speaker from '@/icons/Speaker';
@@ -11,12 +11,16 @@ type CallbackFunctions = ((event: GestureResponderEvent) => void) | undefined
 const VoiceButton = ({audioUri}: any) => {
   const Logger = LOGGER();
 
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const playSound = () => {
     if (audioUri) {
       Logger.INFO('Playing Sound');
+      setIsPlaying(true);
       Speech.speak(audioUri, {
         language: 'en',
       });
+      setIsPlaying(false);
     }
   };
 
