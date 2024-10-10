@@ -87,8 +87,6 @@ const useAudioRecording = () => {
 
     try {
 
-      // console.log(OPENAI.AUTHORIZATION)
-
       // Send a POST request to upload audio
       const response = await axios.post(OPENAI.URL?? '', formData, {
         headers: {
