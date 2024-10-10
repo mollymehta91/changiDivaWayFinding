@@ -10,9 +10,11 @@ const useAudioRecording = () => {
     const [permissionResponse, requestPermission] = Audio.usePermissions();
     const [responseMessage, setResponseMessage] = useState<any>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSucceed, setIsSucced] = useState<boolean>(false);
     const [from, setFrom] = useState<any>('');
     const [to, setTo] = useState<any>('');
     const [mins, setMins] = useState<number | null>(null); 
+    const [errorMessage, setErrorMessage] = useState<any | null>('');
     const [instructions, setInstructions] = useState<{
       text: string;
       direction: string;
@@ -99,7 +101,7 @@ const useAudioRecording = () => {
       sendTranscribedText(JSON.stringify(response.data.text)); // Send the transcribed text
     } catch (error: any) {
       // Handle error and log it
-      
+      Logger.ERROR('Error:', error.response?.data || error.message, true);
 
     } finally {
       setIsLoading(false); // Hide loading indicator
@@ -123,22 +125,24 @@ const useAudioRecording = () => {
       Logger.INFO(`Response from backend server: ${response.data.directions[0].from}`);
       // setResponseMessage(response.data.directions[0].from); // Update response message
 
+      // setIsSucced(response.data.directions[0].isSuccees)
+      // if(isSucceed)
+      // {
+      //   setFrom(response.data.directions[0].from)
+      //   setTo(response.data.directions[0].to)
+      //   setInstructions(response.data.directions[0].instructions)
+      //   // setMin(response.data.directions[0].mins)
+      // }
+      // else {
+      //   setErrorMessage(response.data.directions[0].error)
+      // }
+
       setFrom(response.data.directions[0].from)
       setTo(response.data.directions[0].to)
       setInstructions(response.data.directions[0].instructions)
-      // setMin(response.data.directions[0].mins)
 
     } catch (error: any) {
-      console.error('Network error:', error);
-      if (error.response) {
-          console.error('Response data:', error.response.data);
-          console.error('Response status:', error.response.status);
-          console.error('Response headers:', error.response.headers);
-      } else if (error.request) {
-          console.error('Request made but no response received:', error.request);
-      } else {
-          console.error('Error setting up request:', error.message);
-      }
+      Logger.ERROR('Error:', error.response?.data || error.message, true);
   }
   };
 
@@ -146,11 +150,13 @@ const useAudioRecording = () => {
     recording,
     permissionResponse,
     responseMessage,
+    isSucceed,
     isLoading,
     from,
     to,
     instructions,
     mins,
+    errorMessage,
     startRecording,
     stopRecording,
   };
