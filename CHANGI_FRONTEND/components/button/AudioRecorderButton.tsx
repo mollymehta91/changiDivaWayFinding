@@ -1,23 +1,12 @@
 import {ActivityIndicator, GestureResponderEvent, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Microphone from '@/icons/Microphone';
-import useAudioRecording from '@/hooks/useAudioRecording';
 
 type CallbackFunctions = ((event: GestureResponderEvent) => void) | undefined
 
-const AudioRecorderButton = () => {
+const AudioRecorderButton = ({ recording, isLoading, startRecording, stopRecording } : any) => {
 
-  const {
-    recording,
-    permissionResponse,
-    responseMessage,
-    audioUri,
-    isLoading,
-    startRecording,
-    stopRecording,
-  } = useAudioRecording();
-
-
+  
   return (
     <TouchableOpacity style={styles.cont} onPress={recording ? stopRecording : startRecording}>
         {isLoading? <ActivityIndicator size="small" color="#000" /> : <Microphone />} 

@@ -1,12 +1,12 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
 import NavigationContent from "./NavigationContent";
 
-export default function NavigationList (data: any) {
+export default function NavigationList ({ data }: any) {
 
     return (
     <ScrollView style={styles.navigationContentList}>
         {
-            data["data"].map((item: any, index: number) => {             
+            data.map((item: any, index: number) => {             
                 console.log(item)
                 return (
                     <NavigationContent instructions={item.text} pathDirection={item.direction} key={index}/>

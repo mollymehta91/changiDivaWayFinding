@@ -40,7 +40,7 @@ export default function NavigationContent ({instructions, pathDirection}: Naviga
             
             <View style={styles.body}>
                 <Text style={styles.bodyText}>{instructions}</Text>
-                {/* <VoiceButton /> */}
+                <VoiceButton audioUri={instructions}/>
             </View>
         </View>
     )

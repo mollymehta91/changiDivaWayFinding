@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Audio } from 'expo-av';
 import axios from 'axios';
 import { OPENAI, FORM_DATA, RECORDING, DIRECTION }  from '@/constants/enum';
@@ -8,12 +8,16 @@ const useAudioRecording = () => {
     // state for the variable
     const [recording, setRecording] = useState<Audio.Recording | undefined>(undefined);
     const [permissionResponse, requestPermission] = Audio.usePermissions();
-    const [responseMessage, setResponseMessage] = useState<string>('');
-    const [audioUri, setAudioUri] = useState<string | null>(null);
+    const [responseMessage, setResponseMessage] = useState<any>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [from, setFrom] = useState<any>('');
+    const [to, setTo] = useState<any>('');
+    const [mins, setMins] = useState<number | null>(null); 
+    const [instructions, setInstructions] = useState<{
+      text: string;
+      direction: string;
+    }[]>([]);
     const Logger = LOGGER();
-
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 
     // Function to start recording audio
@@ -116,9 +120,14 @@ const useAudioRecording = () => {
         },
       });
 
-      Logger.INFO(`Response from backend server: ${JSON.stringify(response.data)}`);
-      setResponseMessage(`Transcription: ${JSON.stringify(response.data)}`); // Update response message
-      setAudioUri(JSON.stringify(response.data)); // Set the audio URI for playback
+      Logger.INFO(`Response from backend server: ${response.data.directions[0].from}`);
+      // setResponseMessage(response.data.directions[0].from); // Update response message
+
+      setFrom(response.data.directions[0].from)
+      setTo(response.data.directions[0].to)
+      setInstructions(response.data.directions[0].instructions)
+      // setMin(response.data.directions[0].mins)
+
     } catch (error: any) {
       console.error('Network error:', error);
       if (error.response) {
@@ -137,8 +146,11 @@ const useAudioRecording = () => {
     recording,
     permissionResponse,
     responseMessage,
-    audioUri,
     isLoading,
+    from,
+    to,
+    instructions,
+    mins,
     startRecording,
     stopRecording,
   };
