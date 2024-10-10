@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  FlaskLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler        # Lambda handler in app.py
+      Runtime: python3.10                 # Python runtime
+      CodeUri: ./                        # Directory where the Lambda function code is located
+      MemorySize: 128                    # Memory for Lambda
+      Timeout: 30                        # Timeout in seconds
+      Events:
+        ApiGatewayEndpoint:
+          Type: Api
+          Properties:
+            Path: /process-navigation     # API Gateway path
+            Method: post                  # HTTP method
+            RestApiId: !Ref ApiGateway
+
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod                     # API Gateway stage (e.g., prod)
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/prod/process-navigation"
