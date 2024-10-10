@@ -123,7 +123,7 @@ const useAudioRecording = () => {
       Logger.INFO(`Response from backend server: ${response.data.directions[0].from}`);
       // setResponseMessage(response.data.directions[0].from); // Update response message
 
-      // setIsSucced(response.data.directions[0].isSuccees)
+      // setIsSucced(response.data.directions[0].isSucceed)
       // if(isSucceed)
       // {
       //   setFrom(response.data.directions[0].from)
