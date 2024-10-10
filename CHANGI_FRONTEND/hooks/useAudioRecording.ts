@@ -87,8 +87,6 @@ const useAudioRecording = () => {
 
     try {
 
-      // console.log(OPENAI.AUTHORIZATION)
-
       // Send a POST request to upload audio
       const response = await axios.post(OPENAI.URL?? '', formData, {
         headers: {
@@ -125,7 +123,7 @@ const useAudioRecording = () => {
       Logger.INFO(`Response from backend server: ${response.data.directions[0].from}`);
       // setResponseMessage(response.data.directions[0].from); // Update response message
 
-      // setIsSucced(response.data.directions[0].isSuccees)
+      // setIsSucced(response.data.directions[0].isSucceed)
       // if(isSucceed)
       // {
       //   setFrom(response.data.directions[0].from)
