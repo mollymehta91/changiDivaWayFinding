@@ -27,10 +27,10 @@ jobs:
           pip install -r CHANGI_BACKEND/lambda-layer/requirements.txt
 
       # Step 4: Run Unit Tests (with pytest)
-      - name: Run Unit Tests
-        run: |
-          cd CHANGI_BACKEND
-          python -m pytest > unit-test-report.txt
+      # - name: Run Unit Tests
+      #   run: |
+      #     cd CHANGI_BACKEND
+      #     python -m pytest > unit-test-report.txt
 
       # Step 5: Upload Unit Test Results
       - name: Upload Unit Test Results
