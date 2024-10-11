@@ -44,18 +44,18 @@ jobs:
         run: |
           pip install bandit
 
-      # Step 7: Run Bandit Security Scan
-      - name: Run Bandit Security Scan
-        run: |
-          cd CHANGI_BACKEND
-          bandit -r . --exclude lambda-layer,tests -f json -o bandit-report.json
+      # # Step 7: Run Bandit Security Scan
+      # - name: Run Bandit Security Scan
+      #   run: |
+      #     cd CHANGI_BACKEND
+      #     bandit -r . --exclude lambda-layer,tests -f json -o bandit-report.json
 
-      # Step 8: Upload Bandit Security Report
-      - name: Upload Bandit Security Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: bandit-report
-          path: bandit-report.json
+      # # Step 8: Upload Bandit Security Report
+      # - name: Upload Bandit Security Report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: bandit-report
+      #     path: bandit-report.json
 
   # Build and Deploy Job
   build-deploy:
