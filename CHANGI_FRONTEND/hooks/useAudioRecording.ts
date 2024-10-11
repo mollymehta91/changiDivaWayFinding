@@ -24,7 +24,6 @@ const useAudioRecording = () => {
     const [directions, setDirections] = useState<any[]>([]); // Array of directions
     const [from, setFrom] = useState<string>(''); // Starting location
     const [to, setTo] = useState<string>(''); // Destination location
-    const [mins, setMins] = useState<number | null>(null); // Duration in minutes (if applicable)
     const [instructions, setInstructions] = useState<{ text: string; direction: string }[]>([]); // List of instructions
     const Logger = LOGGER(); // Logger instance
 
@@ -141,7 +140,6 @@ const useAudioRecording = () => {
                     // Set the from, to, mins and instructions based on the current direction
                     setFrom(selectedDirection.from);
                     setTo(selectedDirection.to);
-                    setMins(selectedDirection.mins)
                     setInstructions(selectedDirection.instructions);
                     setResponseMessage(null); // Clear any previous error messages
                 } else {
@@ -176,7 +174,6 @@ const useAudioRecording = () => {
         from,
         to,
         instructions,
-        mins,
         startRecording,
         stopRecording,
     };
