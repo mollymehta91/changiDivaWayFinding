@@ -17,16 +17,21 @@ export default function NavigationScreen() {
     to,
     from,
     instructions,
-    errorMessage,
+    responseMessage,
     startRecording,
     stopRecording,
   } = useAudioRecording();
   
-  // const [modalVisible, setModalVisible] = useState(false);
-
   // // Show the modal if there's an error message
-  // if (isSucceed && errorMessage) {
-  //   setModalVisible(true);
+  // const [errorModalVisible, setErrorModalVisible] = useState(false);
+  // if (!isSucceed && responseMessage) {
+  //   setErrorModalVisible(true);
+  // }
+
+  // // Show the modal if there's no direction
+  // const [messageModalVisible, setMessageModalVisible] = useState(false);
+  // if (isSucceed && responseMessage) {
+  //   setMessageModalVisible(true);
   // }
 
   return (
@@ -60,20 +65,40 @@ export default function NavigationScreen() {
       )}
 
 
+      {/* Modal for message */}
+      {/* <Modal
+        transparent={true}
+        animationType="slide"
+        visible={messageModalVisible}
+        onRequestClose={() => {
+          setMessageModalVisible(!messageModalVisible);
+        }}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.errorMessage}>{responseMessage}</Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setMessageModalVisible(false)}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal> */}
+
       {/* Modal for error message */}
       {/* <Modal
         transparent={true}
         animationType="slide"
-        visible={modalVisible}
+        visible={errorModalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setErrorModalVisible(!errorModalVisible);
         }}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.errorMessage}>{errorMessage}</Text>
+            <Text style={styles.errorMessage}>{responseMessage}</Text>
             <TouchableOpacity
               style={styles.closeButton}
-              onPress={() => setModalVisible(false)}>
+              onPress={() => setErrorModalVisible(false)}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>

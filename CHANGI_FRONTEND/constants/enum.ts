@@ -14,6 +14,7 @@ export const DIRECTION = {
     URL: process.env.EXPO_PUBLIC_CHANGI_BACKEND_URL,
     AUTHORIZATION: `${process.env.EXPO_PUBLIC_CHANGI_BACKEND_API_KEY}`,
     CONTENT_TYPE: 'application/json',
+    LANGUAGE: 'English'
 }
 
 export const OPENAI = {
