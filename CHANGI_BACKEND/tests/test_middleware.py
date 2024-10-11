@@ -56,3 +56,9 @@ def test_missing_api_key(app):
 # Entry point for running tests using pytest
 if __name__ == '__main__':
     pytest.main()  # Execute the tests when running the file directly
+
+"""
+    The test cases are already compatible with Flask, and because 
+    APIKeyMiddleware is independent of AWS Lambda-specific functionality, 
+    it will work without modification in a Lambda context.
+"""

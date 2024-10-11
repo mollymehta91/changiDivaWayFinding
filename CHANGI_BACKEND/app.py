@@ -5,6 +5,7 @@ from config import Config
 from middleware import APIKeyMiddleware
 from fetch_data import fetch_data
 import time
+from aws_lambda_wsgi import response as wsgi_response
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -56,3 +57,8 @@ def process_transcribed_text():
 # Run the Flask app in debug mode if the script is executed directly
 if __name__ == '__main__':
     app.run(debug=True)
+
+# AWS Lambda handler
+def lambda_handler(event, context):
+    # Convert Flask app to be compatible with AWS Lambda using aws-wsgi
+    return wsgi_response(app, event, context)

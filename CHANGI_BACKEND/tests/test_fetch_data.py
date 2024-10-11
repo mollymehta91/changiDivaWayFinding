@@ -5,7 +5,7 @@ from config import Config
 import json
 
 def test_fetch_data_basic(mocker):
-    
+
     """
     Test the basic functionality of fetch_data with a simple mock response.
     """
