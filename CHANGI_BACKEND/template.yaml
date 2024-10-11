@@ -14,7 +14,7 @@ Resources:
     Properties:
       Handler: app.lambda_handler        # Lambda handler in app.py
       Runtime: python3.10                # Python runtime
-      CodeUri: ./CHANGI_BACKEND          # Directory where the Lambda function code is located
+      CodeUri: ./                        # Directory where the Lambda function code is located
       MemorySize: 128                    # Memory for Lambda
       Timeout: 30                        # Timeout in seconds
       Events:
