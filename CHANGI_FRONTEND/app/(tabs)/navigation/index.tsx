@@ -45,9 +45,11 @@ export default function NavigationScreen() {
         />
       </View>
 
-      <SideNavigation data={data.instructions} from={data.from} to={data.to} />
+      {/* <SideNavigation data={data.instructions} from={data.from} to={data.to} /> */}
 
-      {/* {instructions && instructions.length > 0 ? (
+      {
+      recording ? (<SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />)  :
+      instructions && instructions.length > 0 ? (
         <SideNavigation 
         data={instructions}
         from={from}
@@ -55,7 +57,8 @@ export default function NavigationScreen() {
         />
       ) : (
         <SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />
-      )} */}
+      )}
+
 
       {/* Modal for error message */}
       {/* <Modal

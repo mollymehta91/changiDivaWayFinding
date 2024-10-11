@@ -40,7 +40,10 @@ export default function SideNavigationContent ({instructions, pathDirection}: Na
             
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
-                    <Text style={styles.bodyText}>{instructions}</Text>
+                    <Text style={styles.title}>{instructions}</Text>
+                    <Text style={styles.subTitle}>2 mins</Text>
+                </View>
+                <View style={styles.voiceButtonContainer}>
                     <VoiceButton audioUri={instructions}/>
                 </View>
             </View>
@@ -62,22 +65,38 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     body: {
-        flexDirection: 'column',
+        flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         marginLeft: 30,
         flex: 1,
+        // alignItems: 'center',
+        // backgroundColor: 'green'
     },
     bodyContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
+        gap: 5,
         alignItems: 'center',
+        justifyContent: 'center',
+        // backgroundColor: 'red',
     },
-    bodyText: {
+    title: {
         fontFamily: 'Inter_18pt-Medium',
-        fontSize: 15,
+        fontSize: 12.7,
         color: 'black',
         width: 200,
         flexWrap: 'wrap',
+        // backgroundColor: 'blue',
+    },
+    subTitle: {
+        fontFamily: 'Inter_18pt-Medium',
+        fontSize: 12.7,
+        color: 'black',
+        opacity: 0.7,
+        width: 200,
+    },
+    voiceButtonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 })

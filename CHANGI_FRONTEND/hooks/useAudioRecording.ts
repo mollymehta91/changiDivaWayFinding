@@ -108,17 +108,23 @@ const useAudioRecording = () => {
 
   const sendTranscribedText = async (transcribedText: string) => {
     Logger.INFO(`transcribedText: ${transcribedText}`);
-    
+
     try {
       // Send a POST request with the transcribed text
-      const response = await axios.post(DIRECTION.URL?? '', {
-        transcribed_text: transcribedText,
-      }, {
-        headers: {
-          'Authorization': DIRECTION.AUTHORIZATION, // Set authorization header
-          'Content-Type': DIRECTION.CONTENT_TYPE, // Set content type
-        },
-      });
+      const response = await axios.post(
+        DIRECTION.URL?? '', 
+        {
+          "transcribed_text": transcribedText,
+          "language": "English"
+        }, 
+        {
+          headers: {
+            'Authorization': DIRECTION.AUTHORIZATION, 
+            'x-api-key': DIRECTION.AUTHORIZATION, // Set authorization header
+            'Content-Type': DIRECTION.CONTENT_TYPE, // Set content type
+          },
+        }
+      );
 
       Logger.INFO(`Response from backend server: ${response.data.directions[0].from}`);
       // setResponseMessage(response.data.directions[0].from); // Update response message
