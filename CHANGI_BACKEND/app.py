@@ -13,40 +13,46 @@ logger = logging.getLogger(__name__)
 # Load OpenAI API key
 openai.api_key = Config.OPENAI_API_KEY
 
-# Initialize Flask app and API key middleware
+# Initialize Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Set up middleware for API key validation
 api_key_middleware = APIKeyMiddleware(Config.API_KEY)
 
 # Middleware to check API key
 @app.before_request
 def before_request():
+    # Check if the API key provided in the request headers is valid
     error_response = api_key_middleware.check_api_key()
     if error_response:
         logger.warning("Unauthorized access attempt")
-        return error_response
+        return error_response   # Return error response if API key is invalid
 
-# Endpoint to process transcribed text
+# Endpoint to process transcribed text and return navigation instructions
 @app.route('/process-transcribed-text', methods=['POST'])
 def process_transcribed_text():
+    # Parse the JSON data from the incoming request
     data = request.get_json()
-    transcribed_text = data.get('transcribed_text')
-    language = data.get('language', "English")
+    transcribed_text = data.get('transcribed_text') # Get the transcribed text from request
+    language = data.get('language', "English")  # Default language to English if not provided
 
+    # Check if transcribed text is provided
     if not transcribed_text:
         logger.error("No transcribed text provided")
         return Response("No transcribed text provided", status=400)
 
     logger.info("Processing transcribed text request")
-    start_time = time.time()
+    start_time = time.time()    # Record the start time for performance tracking
 
-    # Call the fetch_data function to get the formatted response
+    # Call the `fetch_data` function to get directions based on transcribed text
     response_content = fetch_data(transcribed_text, Config.ASSISTANT_ID, Config.VECTOR_ID, language)
     end_time = time.time()
-    logger.info(f"Response received in {end_time - start_time:.2f} seconds")
+    logger.info(f"Response received in {end_time - start_time:.2f} seconds")    # Log time taken to process request
 
     # Return the response as a JSON
     return jsonify(response_content)
 
+# Run the Flask app in debug mode if the script is executed directly
 if __name__ == '__main__':
     app.run(debug=True)

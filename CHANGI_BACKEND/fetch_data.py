@@ -8,6 +8,18 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def fetch_data(input_text, assistant_id, vector_id, language="English"):
+    """
+    Function to fetch data from the OpenAI assistant based on the user's input.
+    
+    Parameters:
+    - input_text: The text input provided by the user, typically a transcribed voice command.
+    - assistant_id: The OpenAI assistant ID to interact with.
+    - vector_id: The vector ID for any tool resources used during the assistant's response generation.
+    - language: The language to be used in the assistant's response (default is "English").
+
+    Returns:
+    - JSON response with directions or an error message based on the assistant's response.
+    """
     try:
         # Retrieve the specified assistant
         assistant = openai.beta.assistants.retrieve(assistant_id=assistant_id)
@@ -23,9 +35,10 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
 
         # Helper function to check status and retrieve the final message
         def check_status_and_get_message(thread_id, run_id):
+            # Retrieve the current status of the run
             run_status = openai.beta.threads.runs.retrieve(run_id=run.id, thread_id=thread_id)
             if run_status.status == "completed":
-                # Get all messages from the thread
+                # Retrieve all messages from the thread
                 messages = openai.beta.threads.messages.list(thread_id=thread_id)
                 
                 # Log the response for debugging
@@ -37,12 +50,13 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
                 # Extract the value from the assistant's message content
                 assistant_message = message_data[0]['content'][0]['text']['value']
 
-                # Deserialize the JSON string into a Python dictionary
                 try:
+                    # Attempt to parse the response as JSON
                     directions_data = json.loads(assistant_message)
 
                     # Check if the response contains directions information
                     if "directions" in directions_data:
+                        # Format the instructions into a more readable structure
                         formatted_instructions = [
                             {
                                 "text": instruction.get("text", ""),
@@ -53,7 +67,7 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
                         ]
 
                         # Create the final response format
-                        #isSucceed is for frontend processing
+                        # isSucceed is for frontend processing
                         formatted_response = {
                             "isSucceed": True,
                             "message": "Successful",
@@ -90,12 +104,14 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
             logger.info("Checking response status...")
             response = check_status_and_get_message(thread.id, run.id)
             if response:
-                return response
+                return response # Return the response if the run is completed successfully
             time.sleep(5)
-            timeout -= 5
+            timeout -= 5    # Reduce the timeout by 5 seconds after each iteration
 
+        # Return an error response if the timeout is reached without completion
         return {"isSucceed": False, "error": "Timeout: Assistant did not respond within the allowed time."}
 
     except Exception as e:
+        # Handle any unexpected exceptions and log the error
         logger.error(f"Error occurred: {e}")
         return {"isSucceed": False, "error": f"Error fetching assistant data: {e}"}
