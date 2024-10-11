@@ -1,36 +1,32 @@
 {
-  "directions": [
-      {
-          "from": "TUMI",
-          "instructions": [
-              {
-                  "direction": "straight",
-                  "mins": "2",
-                  "text": "Begin at Tumi, continue walking straight alongside the shops."
-              },
-              {
-                  "direction": "straight",
-                  "mins": "3",
-                  "text": "Pass the Garrett Popcorn Shops and Discover Singapore nearby."
-              },
-              {
-                  "direction": "straight",
-                  "mins": "2",
-                  "text": "Keep going straight past Pontian Wanton Noodles."
-              },
-              {
-                  "direction": "right",
-                  "mins": "1",
-                  "text": "On your right, Beyond the Vines and The Cocoa Trees are visible."
-              },
-              {
-                  "direction": "straight",
-                  "mins": "2",
-                  "text": "Proceed until you arrive at Starbucks, located between Beyond the Vines and Sandbar."
-              }
-          ],
-          "to": "Starbucks"
-      }
-  ],
-  "isSucceed": true
+    "directions": [
+        {
+            "from": "Tumi",
+            "instructions": [
+                {
+                    "direction": "straight",
+                    "mins": "1",
+                    "text": "Start at Tumi."
+                },
+                {
+                    "direction": "straight",
+                    "mins": "2",
+                    "text": "Walk straight ahead and pass Garrett Popcorn Shops on your left."
+                },
+                {
+                    "direction": "straight",
+                    "mins": "2",
+                    "text": "Continue walking until you reach Discover Singapore."
+                },
+                {
+                    "direction": "left",
+                    "mins": "1",
+                    "text": "Just past Discover Singapore, you will find Starbucks on your left."
+                }
+            ],
+            "to": "Starbucks"
+        }
+    ],
+    "isSucceed": true,
+    "message": "Successful"
 }
