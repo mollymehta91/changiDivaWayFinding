@@ -56,6 +56,7 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
                         #isSucceed is for frontend processing
                         formatted_response = {
                             "isSucceed": True,
+                            "message": "Successful",
                             "directions": [
                                 {
                                     "from": directions_data["directions"][0]["from"],
@@ -68,15 +69,16 @@ def fetch_data(input_text, assistant_id, vector_id, language="English"):
                         # Return the formatted JSON data
                         return formatted_response
                     else:
-                        # If the response does not have directions, log and return raw response as an error message
+                        # If the response does not have directions, log and return the message set as an error message
                         logger.warning("Response does not contain directions. Returning raw message as error.")
                         return {
                             "isSucceed": True, 
-                            "message": "Please enter the correct destination."
+                            "message": "Please enter the correct destination.",
+                            "directions": None
                         }
 
                 except json.JSONDecodeError:
-                    # Handle JSON decoding errors and return the raw message as an error response
+                    # Handle JSON decoding errors and return the the message set as an error response
                     logger.error(f"Failed to decode JSON response. Returning raw message as error: {assistant_message}")
                     return {"isSucceed": False, "message": "Error"}
 
