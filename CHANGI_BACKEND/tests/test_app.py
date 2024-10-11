@@ -24,7 +24,7 @@
 #     unittest.main()
 import json
 import pytest
-from lambda_function import lambda_handler  # Import the lambda function to be tested
+from CHANGI_BACKEND.app import lambda_handler  # Import the lambda function to be tested
 
 def test_lambda_handler_with_message():
     # Mock API Gateway event with a message

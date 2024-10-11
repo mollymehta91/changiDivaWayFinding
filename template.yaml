@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ChangiLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: ChangiLayer
+      Description: Lambda Layer for dependencies
+      ContentUri: ./CHANGI_BACKEND/lambda-layer/
+      CompatibleRuntimes:
+        - python3.10
+  
+  AppLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambda_handler        # Lambda handler in app.py
+      Runtime: python3.10                # Python runtime
+      CodeUri: ./CHANGI_BACKEND          # Directory where the Lambda function code is located
+      MemorySize: 128                    # Memory for Lambda
+      Timeout: 30
+      Layers:
+      - Ref: ChangiLayer                   # Timeout in seconds
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            # RestApiId: !Ref ChangiGateway
+            Path: /process-transcribed-text      # API Gateway resource path
+            Method: post                         # HTTP method (POST)
+            RequestParameters:
+              method.request.header.x-api-key: true  # Custom header to expect
+            
+  # ChangiGateway:
+  #   Type: AWS::Serverless::Api
+  #   Properties:
+  #     Name: "ChangiGateway"
+  #     StageName: prod   # API Gateway stage (e.g., prod)
+  #     EndpointConfiguration: REGIONAL  # API Gateway stage type
+  #     DefinitionBody:
+  #       swagger: "2.0"
+  #       info:
+  #         title: "Changi Gateway"
+  #       paths:
+  #         /process-transcribed-text:
+  #           post:
+  #             parameters:
+  #               - name: "x-api-key"
+  #                 in: "header"
+  #                 required: true
+  #                 type: "string"
+  #             responses:
+  #               "200":
+  #                 description: "OK"
+
+Outputs:
+  ApiUrl:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/prod/process-transcribed-text"
