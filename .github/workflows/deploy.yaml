@@ -90,8 +90,7 @@ jobs:
       # Step 5: Build the AWS SAM project
       - name: Build the project
         run: |
-          cd CHANGI_BACKEND
-          sam build
+          sam build --template-file CHANGI_BACKEND/template.yaml
 
       # Step 6: Deploy the Lambda and API Gateway
       - name: Deploy Lambda and API Gateway
@@ -101,7 +100,7 @@ jobs:
           AWS_DEFAULT_REGION: ap-southeast-1
         run: |
           cd CHANGI_BACKEND
-          sam deploy --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api --guided
+          sam deploy --template-file CHANGI_BACKEND/template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api --guided
 
       # Step 7: Extract the API Gateway URL
       - name: Extract API Gateway URL
