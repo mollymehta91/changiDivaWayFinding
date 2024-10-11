@@ -99,7 +99,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-southeast-1
         run: |
-          cd CHANGI_BACKEND
           sam deploy --template-file CHANGI_BACKEND/template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api --guided
 
       # Step 7: Extract the API Gateway URL
