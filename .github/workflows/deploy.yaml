@@ -24,12 +24,14 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          cd CHANGI_BACKEND
+          pip install -r lambda-layer/requirements.txt
           pip install pytest
 
       # Step 4: Run Unit Tests (with pytest)
       - name: Run Unit Tests
         run: |
+          cd CHANGI_BACKEND
           pytest > unit-test-report.txt
 
       # Step 5: Upload Unit Test Results
@@ -47,6 +49,7 @@ jobs:
       # Step 7: Run Bandit Security Scan
       - name: Run Bandit Security Scan
         run: |
+          cd CHANGI_BACKEND
           bandit -r . --exclude lambda-layer,tests -f json -o bandit-report.json
 
       # Step 8: Upload Bandit Security Report
@@ -82,13 +85,14 @@ jobs:
       # Step 4: Install dependencies for the Lambda Layer
       - name: Install Lambda Layer dependencies
         run: |
-          cd lambda-layer
+          cd CHANGI_BACKEND/lambda-layer
           pip install -r requirements.txt -t python  # Install dependencies into python/ folder
           cd ..
 
       # Step 5: Build the AWS SAM project
       - name: Build the project
         run: |
+          cd CHANGI_BACKEND
           sam build
 
       # Step 6: Deploy the Lambda and API Gateway
@@ -98,6 +102,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-southeast-1
         run: |
+          cd CHANGI_BACKEND
           sam deploy --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api --guided
 
       # Step 7: Extract the API Gateway URL
