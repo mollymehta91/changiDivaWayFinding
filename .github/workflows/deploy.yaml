@@ -31,8 +31,7 @@ jobs:
       # Step 4: Run Unit Tests (with pytest)
       - name: Run Unit Tests
         run: |
-          cd CHANGI_BACKEND
-          pytest > unit-test-report.txt
+          pytest CHANGI_BACKEND/tests > unit-test-report.txt
 
       # Step 5: Upload Unit Test Results
       - name: Upload Unit Test Results
