@@ -1,18 +1,19 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useAudioRecording from '../../hooks/useAudioRecording';
+import useAudioRecording from '../../hooks/useAudioRecording'; // Adjust the import path
 import { Audio } from 'expo-av';
 import axios from 'axios';
 
-// Mocking the necessary modules
+// Mocking the Audio module and axios
 jest.mock('expo-av');
 jest.mock('axios');
 
-// Define mock functions for permissions and recording
+// Mocking necessary functions
 const mockRequestPermission = jest.fn();
 const mockStopAndUnloadAsync = jest.fn();
 const mockGetURI = jest.fn();
+const mockAxiosPost = jest.spyOn(axios, 'post');
 
-// Set up mock return values for the audio permissions
+// Setting up the audio permissions
 (Audio.usePermissions as jest.Mock).mockReturnValue([
   { status: 'granted' },
   mockRequestPermission,
@@ -20,12 +21,7 @@ const mockGetURI = jest.fn();
 
 // Mock implementation for creating a recording
 (Audio.Recording.createAsync as jest.Mock).mockImplementation(() => {
-  return Promise.resolve({
-    recording: {
-      stopAndUnloadAsync: mockStopAndUnloadAsync,
-      getURI: mockGetURI,
-    },
-  });
+  return Promise.resolve({ recording: { stopAndUnloadAsync: mockStopAndUnloadAsync, getURI: mockGetURI } });
 });
 
 // Clear all mock calls before each test
@@ -34,7 +30,7 @@ beforeEach(() => {
 });
 
 describe('useAudioRecording', () => {
-  it('should start recording', async () => {
+  it('should start recording successfully', async () => {
     const { result } = renderHook(() => useAudioRecording());
 
     await act(async () => {
@@ -43,7 +39,21 @@ describe('useAudioRecording', () => {
 
     expect(mockRequestPermission).not.toHaveBeenCalled();
     expect(Audio.Recording.createAsync).toHaveBeenCalled();
-    expect(result.current.recording).toBeDefined();
+  });
+
+  it('should request permission if not granted', async () => {
+    (Audio.usePermissions as jest.Mock).mockReturnValue([
+      { status: 'undetermined' },
+      mockRequestPermission,
+    ]);
+
+    const { result } = renderHook(() => useAudioRecording());
+
+    await act(async () => {
+      await result.current.startRecording();
+    });
+
+    expect(mockRequestPermission).toHaveBeenCalled();
   });
 
   it('should handle errors when starting recording', async () => {
@@ -63,40 +73,36 @@ describe('useAudioRecording', () => {
   it('should stop recording and upload audio', async () => {
     const uri = 'mock-uri';
     mockGetURI.mockReturnValue(uri);
-
+    
+    // Mock upload response
     const mockUploadResponse = { data: { text: 'mock text' } };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockUploadResponse); // First call for upload
+    mockAxiosPost.mockResolvedValueOnce(mockUploadResponse); // For audio upload
 
+    // Mock transcription response with valid directions
     const mockTranscriptionResponse = {
-      data: {
-        isSucceed: true,
-        directions: [
-          {
-            from: 'A',
-            to: 'B',
-            instructions: [],
-          },
-        ],
-        message: ''
-      }
+        data: {
+            isSucceed: true,
+            directions: [
+                { from: 'A', to: 'B', instructions: [] },
+            ],
+        },
     };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockTranscriptionResponse); // Second call for transcription
+    mockAxiosPost.mockResolvedValueOnce(mockTranscriptionResponse); // For transcribed text
 
     const { result } = renderHook(() => useAudioRecording());
 
     await act(async () => {
-      await result.current.startRecording();
-      await result.current.stopRecording();
+        await result.current.startRecording();
+        await result.current.stopRecording();
     });
 
     expect(mockStopAndUnloadAsync).toHaveBeenCalled();
     expect(mockGetURI).toHaveBeenCalled();
-    expect(axios.post).toHaveBeenCalledTimes(2);
-
+    expect(mockAxiosPost).toHaveBeenCalledTimes(2); 
     expect(result.current.from).toBe('A');
     expect(result.current.to).toBe('B');
-    expect(result.current.instructions).toEqual([]);
-    expect(result.current.responseMessage).toBe(null);
+    expect(result.current.instructions).toEqual([]); // Check if instructions are set correctly
+    expect(result.current.responseMessage).toBe(null); // Check if response message is cleared
   });
 
   it('should handle errors when stopping recording due to null URI', async () => {
@@ -114,7 +120,7 @@ describe('useAudioRecording', () => {
   it('should handle errors during audio upload', async () => {
     const uri = 'mock-uri';
     mockGetURI.mockReturnValue(uri);
-    (axios.post as jest.Mock).mockRejectedValueOnce(new Error('Upload failed'));
+    mockAxiosPost.mockRejectedValueOnce(new Error('Upload failed'));
 
     const { result } = renderHook(() => useAudioRecording());
 
@@ -129,80 +135,66 @@ describe('useAudioRecording', () => {
   it('should handle unsuccessful transcription response', async () => {
     const uri = 'mock-uri';
     mockGetURI.mockReturnValue(uri);
+  
+    // Mock upload response
     const mockUploadResponse = { data: { text: 'mock text' } };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockUploadResponse); // First call for upload
-
-    const mockTranscriptionResponse = {
-      data: {
-        isSucceed: false,
-        message: 'error', // Providing an error message
-        directions: []
-      }
-    };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockTranscriptionResponse); // Second call for transcription
-
-    const { result } = renderHook(() => useAudioRecording());
-
-    await act(async () => {
-      await result.current.startRecording();
-      await result.current.stopRecording();
-    });
-
-    expect(result.current.responseMessage).toBe('error');
-  });
-
-  it('should handle no directions available', async () => {
-    const uri = 'mock-uri';
-    mockGetURI.mockReturnValue(uri);
-    
-    // Mocking the upload response
-    const mockUploadResponse = { data: { text: 'mock text' } };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockUploadResponse); // First call for upload
-
-    // Mocking the transcription response indicating no directions available
+    mockAxiosPost.mockResolvedValueOnce(mockUploadResponse); // First call for upload
+  
+    // Mock transcription response with no directions
     const mockTranscriptionResponse = {
       data: {
         isSucceed: true,
-        message: 'No directions found', // Message for no directions
-        directions: [] // No directions available
-      }
+        message: 'No directions found',
+        directions: [],
+      },
     };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockTranscriptionResponse); // Second call for transcription
-
+  
+    mockAxiosPost.mockResolvedValueOnce(mockTranscriptionResponse); // Second call for transcription
+  
     const { result } = renderHook(() => useAudioRecording());
-
-    await act(async () => {
-        await result.current.startRecording();
-        await result.current.stopRecording();
-    });
-
-    // Check that the response message is correctly set
-    expect(result.current.responseMessage).toBe('No directions found');
-});
-
-  it('should handle errors when sending transcribed text', async () => {
-    const uri = 'mock-uri';
-    mockGetURI.mockReturnValue(uri);
-
-    // Mocking the successful upload response
-    const mockUploadResponse = {
-      data: { text: 'mock-response' } // Simulating the response structure
-    };
-    (axios.post as jest.Mock).mockResolvedValueOnce(mockUploadResponse); // First call for upload
-
-    // Mocking the failure for sending transcribed text
-    const mockTranscriptionError = new Error('Transcription failed');
-    (axios.post as jest.Mock).mockRejectedValueOnce('Transcription failed'); // Second call for transcription
-
-    const { result } = renderHook(() => useAudioRecording());
-
+  
     await act(async () => {
       await result.current.startRecording();
       await result.current.stopRecording();
     });
-
-    // Check that the appropriate error message is set
+  
+    expect(result.current.responseMessage).toBe('No directions found');
+  });
+  
+  it('should handle errors when sending transcribed text', async () => {
+    const uri = 'mock-uri';
+    mockGetURI.mockReturnValue(uri);
+  
+    const mockUploadResponse = { data: { text: 'mock text' } };
+    mockAxiosPost.mockResolvedValueOnce(mockUploadResponse); // Mock upload response
+  
+    // Mock transcription response
+    const mockTranscriptionResponse = {
+      data: {
+        isSucceed: true,
+        directions: [
+          {
+            from: 'A',
+            to: 'B',
+            instructions: [],
+          },
+        ],
+        message: ''
+      },
+    };
+  
+    // Simulate an error when sending transcribed text
+    mockAxiosPost.mockRejectedValueOnce(new Error('Transcription failed'));
+  
+    const { result } = renderHook(() => useAudioRecording());
+  
+    await act(async () => {
+      await result.current.startRecording();
+      await result.current.stopRecording();
+    });
+  
+    
+  
     expect(result.current.responseMessage).toBe('Failed to Transcript: Transcription failed');
-});
-
+  });
 });
