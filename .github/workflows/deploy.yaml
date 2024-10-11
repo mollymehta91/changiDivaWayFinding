@@ -3,7 +3,7 @@ name: Lambda and API Gateway Deployment with Tests
 on:
   push:
     branches:
-      - main   # Trigger deployment on push to the main branch
+      - test   # Trigger deployment on push to the main branch
 
 jobs:
   # Job for running unit, security, and performance tests before deployment
@@ -24,14 +24,13 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: |
-          cd CHANGI_BACKEND
-          pip install -r lambda-layer/requirements.txt
-          pip install pytest
+          pip install -r CHANGI_BACKEND/lambda-layer/requirements.txt
 
       # Step 4: Run Unit Tests (with pytest)
       - name: Run Unit Tests
         run: |
-          pytest CHANGI_BACKEND/tests > unit-test-report.txt
+          cd CHANGI_BACKEND
+          python -m pytest > unit-test-report.txt
 
       # Step 5: Upload Unit Test Results
       - name: Upload Unit Test Results
