@@ -6,7 +6,8 @@ import VoiceButton from "../button/VoiceButton";
 
 type NavigationContentProps = {
     instructions:  string,
-    pathDirection: string
+    pathDirection: string,
+    mins: string
 }
 
 const SideNavigationContentPath = ({pathDirection}: {pathDirection: string}) => {
@@ -30,7 +31,7 @@ const SideNavigationContentPath = ({pathDirection}: {pathDirection: string}) => 
     }
 }
 
-export default function SideNavigationContent ({instructions, pathDirection}: NavigationContentProps) {
+export default function SideNavigationContent ({instructions, pathDirection, mins}: NavigationContentProps) {
 
     return (
         <View style={styles.container}>
@@ -41,7 +42,7 @@ export default function SideNavigationContent ({instructions, pathDirection}: Na
             <View style={styles.body}>
                 <View style={styles.bodyContent}>
                     <Text style={styles.title}>{instructions}</Text>
-                    <Text style={styles.subTitle}>2 mins</Text>
+                    <Text style={styles.subTitle}>{mins} mins</Text>
                 </View>
                 <View style={styles.voiceButtonContainer}>
                     <VoiceButton audioUri={instructions}/>
