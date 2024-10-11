@@ -1,3 +1,16 @@
+const lato = {
+    'Lato-Black': require('../assets/fonts/lato/Lato-Black.ttf'),
+    'Lato-BlackItalic': require('../assets/fonts/lato/Lato-BlackItalic.ttf'),
+    'Lato-Bold': require('../assets/fonts/lato/Lato-Bold.ttf'),
+    'Lato-BoldItalic': require('../assets/fonts/lato/Lato-BoldItalic.ttf'),
+    'Lato-Italic': require('../assets/fonts/lato/Lato-Italic.ttf'),
+    'Lato-Light': require('../assets/fonts/lato/Lato-Light.ttf'),
+    'Lato-LightItalic': require('../assets/fonts/lato/Lato-LightItalic.ttf'),
+    'Lato-Regular': require('../assets/fonts/lato/Lato-Regular.ttf'),
+    'Lato-Thin': require('../assets/fonts/lato/Lato-Thin.ttf'),
+    'Lato-ThinItalic': require('../assets/fonts/lato/Lato-ThinItalic.ttf'),
+}
+
 const inter = {
     'Inter_18pt-Black': require('../assets/fonts/inter/Inter_18pt-Black.ttf'),
     'Inter_18pt-Bold': require('../assets/fonts/inter/Inter_18pt-Bold.ttf'),
@@ -35,6 +48,7 @@ const spaceMono = {
 }
 
 const fonts = {
+    ...lato,
     ...spaceMono,
     ...inter
 }
