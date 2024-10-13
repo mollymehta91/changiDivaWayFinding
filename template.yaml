@@ -25,6 +25,7 @@ Resources:
           OPENAI_API_KEY: !Ref OpenAIKey
           OPENAI_API_URL: !Ref OpenAIURL
           VECTOR_ID: !Ref VectorID
+          STAGE: !Ref StageName
       Layers:
       - Ref: ChangiLayer                   # Timeout in seconds
       Events:
@@ -36,7 +37,7 @@ Resources:
             Method: post                         # HTTP method (POST)
             RequestParameters:
               method.request.header.x-api-key: true  # Custom header to expect
-              
+
 Parameters:
   APIKey:
     Type: String
@@ -48,8 +49,16 @@ Parameters:
     Type: String
   VectorID:
     Type: String
+  StageName:
+    Type: String
+    Default: prod
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: "Deployment stage (e.g., dev, staging, prod)"
 
 Outputs:
   ApiUrl:
     Description: "API Gateway endpoint URL"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/prod/process-transcribed-text"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/process-transcribed-text"
