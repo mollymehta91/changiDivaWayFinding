@@ -51,9 +51,7 @@ Resources:
           /process-transcribed-text:
             post:
               x-amazon-apigateway-integration:      # Integration between API Gateway and Lambda
-                uri: !Sub
-                  - arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AppLambdaFunction.Arn}/invocations
-                  - { "AWS::Region": { "Ref": "AWS::Region" } }
+                uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AppLambdaFunction.Arn}/invocations"
                 httpMethod: POST
                 type: aws_proxy
                 passthroughBehavior: when_no_match
