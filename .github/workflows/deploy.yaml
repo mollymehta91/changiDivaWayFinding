@@ -80,6 +80,16 @@ jobs:
           sudo apt-get install awscli -y
           pip install aws-sam-cli
 
+      - name: Configure AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-southeast-1
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set default.region $AWS_DEFAULT_REGION
+
       # Step 4: Install dependencies for the Lambda Layer
       - name: Install Lambda Layer dependencies
         run: |
@@ -94,10 +104,6 @@ jobs:
 
       # Step 6: Deploy the Lambda and API Gateway
       - name: Deploy Lambda and API Gateway
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-southeast-1
         run: |
           sam deploy --template-file template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api
 
@@ -111,40 +117,91 @@ jobs:
             --output text)
           echo "::set-output name=api_url::$API_URL"
       
-  # Performance Testing Job using Locust
-  performance:
-    runs-on: ubuntu-latest
-    needs: build-deploy
+  # Performance Testing Job using Jmeter
+  # performance:
+  #   runs-on: ubuntu-latest
+  #   needs: build-deploy
 
-    steps:
-      # Step 1: Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
+  #   steps:
+  #     # Install JMeter
+  #     - name: Install JMeter
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y openjdk-11-jre
+  #         wget https://downloads.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz
+  #         tar -xvzf apache-jmeter-5.5.tgz
+  #         sudo mv apache-jmeter-5.5 /opt/jmeter
 
-      # Step 2: Set up Python environment
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
+  #     # Create JMeter Test Plan dynamically with the extracted API URL
+  #     - name: Create JMeter test plan
+  #       run: |
+  #         echo '
+  #         <?xml version="1.0" encoding="UTF-8"?>
+  #         <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  #           <hashTree>
+  #             <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Performance Test Plan" enabled="true">
+  #               <stringProp name="TestPlan.comments"/>
+  #               <boolProp name="TestPlan.functional_mode">false</boolProp>
+  #               <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+  #               <elementProp name="TestPlan.user_defined_variables" elementType="Arguments"/>
+  #               <stringProp name="TestPlan.user_define_classpath"/>
+  #             </TestPlan>
+  #             <hashTree>
+  #               <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+  #                 <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+  #                 <elementProp name="ThreadGroup.num_threads" elementType="int">100</elementProp>
+  #                 <stringProp name="ThreadGroup.ramp_time">60</stringProp>
+  #                 <longProp name="ThreadGroup.duration">600</longProp>
+  #                 <boolProp name="ThreadGroup.scheduler">true</boolProp>
+  #               </ThreadGroup>
+  #               <hashTree>
+  #                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+  #                   <stringProp name="HTTPSampler.domain">${{ steps.get_api_url.outputs.api_url }}</stringProp>
+  #                   <stringProp name="HTTPSampler.port">443</stringProp>
+  #                   <stringProp name="HTTPSampler.protocol">https</stringProp>
+  #                   <stringProp name="HTTPSampler.path">/process-transcribed-text</stringProp>
+  #                   <stringProp name="HTTPSampler.method">POST</stringProp>
+  #                   <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+  #                   <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+  #                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="" enabled="true">
+  #                     <collectionProp name="Arguments.arguments">
+  #                       <elementProp name="" elementType="HTTPArgument">
+  #                         <boolProp name="HTTPArgument.always_encode">false</boolProp>
+  #                         <stringProp name="Argument.value">{ "transcribed_text": "Where is the nearest gate?", "language": "English" }</stringProp>
+  #                         <stringProp name="Argument.metadata">=</stringProp>
+  #                         <boolProp name="HTTPArgument.use_equals">true</boolProp>
+  #                         <stringProp name="Argument.name"/>
+  #                       </elementProp>
+  #                     </collectionProp>
+  #                   </elementProp>
+  #                 </HTTPSamplerProxy>
+  #                 <hashTree/>
+  #                 <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+  #                   <collectionProp name="HeaderManager.headers">
+  #                     <elementProp name="" elementType="Header">
+  #                       <stringProp name="Header.name">Content-Type</stringProp>
+  #                       <stringProp name="Header.value">application/json</stringProp>
+  #                     </elementProp>
+  #                     <elementProp name="" elementType="Header">
+  #                       <stringProp name="Header.name">x-api-key</stringProp>
+  #                       <stringProp name="Header.value">${{ secrets.API_KEY }}</stringProp> <!-- Using the secret here -->
+  #                     </elementProp>
+  #                   </collectionProp>
+  #                 </HeaderManager>
+  #                 <hashTree/>
+  #               </hashTree>
+  #             </hashTree>
+  #           </hashTree>
+  #         </jmeterTestPlan>' > test_plan.jmx
 
-      # Step 3: Install Locust for Performance Testing
-      - name: Install Locust
-        run: |
-          pip install locust
+  #     # Run JMeter Performance Test
+  #     - name: Run JMeter Performance Test
+  #       run: |
+  #         /opt/jmeter/bin/jmeter -n -t test_plan.jmx -l results.jtl -e -o /opt/jmeter/reports
 
-      # Step 4: Define Locust Performance Test
-      - name: Create Locustfile
-        run: |
-          echo "
-          from locust import HttpUser, task, between
-          class MyUser(HttpUser):
-              wait_time = between(1, 5)
-              @task
-              def test_process_data(self):
-                  self.client.post('/process-data', json={'input': 'Sample data'})
-          " > locustfile.py
-
-      # Step 5: Run Locust Performance Test using the extracted API Gateway URL
-      - name: Run Locust Performance Test
-        run: |
-          locust --headless -u 10 -r 2 -t 30s --host ${{ steps.extract-url.outputs.api_url }}
+  #     # Upload JMeter Results as artifact
+  #     - name: Upload JMeter Results
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: jmeter-report
+  #         path: /opt/jmeter/reports
