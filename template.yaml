@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
 Resources:
   ChangiLayer:
     Type: AWS::Serverless::LayerVersion
@@ -9,7 +10,7 @@ Resources:
       ContentUri: ./CHANGI_BACKEND/lambda-layer/
       CompatibleRuntimes:
         - python3.10
-  
+
   AppLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -27,14 +28,14 @@ Resources:
           VECTOR_ID: !Ref VectorID
           STAGE: !Ref StageName
       Layers:
-      - Ref: ChangiLayer                   # Timeout in seconds
+      - Ref: ChangiLayer                 # Lambda Layer for dependencies
       Events:
         ApiEvent:
           Type: Api
           Properties:
-            RestApiId: !Ref ChangiGateway
-            Path: /process-transcribed-text      # API Gateway resource path
-            Method: post                         # HTTP method (POST)
+            RestApiId: !Ref ChangiGateway   # Link to the API Gateway
+            Path: /process-transcribed-text # API Gateway resource path
+            Method: post                    # HTTP method (POST)
             RequestParameters:
               method.request.header.x-api-key: true  # Custom header to expect
 
@@ -57,6 +58,7 @@ Resources:
               responses:
                 "200":
                   description: "Success"
+
 Parameters:
   APIKey:
     Type: String
@@ -80,4 +82,4 @@ Parameters:
 Outputs:
   ApiUrl:
     Description: "API Gateway endpoint URL"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/process-transcribed-text"
+    Value: !Sub "https://${ChangiGateway}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/process-transcribed-text"
