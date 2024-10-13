@@ -32,12 +32,31 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            # RestApiId: !Ref ChangiGateway
+            RestApiId: !Ref ChangiGateway
             Path: /process-transcribed-text      # API Gateway resource path
             Method: post                         # HTTP method (POST)
             RequestParameters:
               method.request.header.x-api-key: true  # Custom header to expect
 
+  ChangiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref StageName            # Stage name (dev, staging, prod)
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          title: "Changi Gateway"
+        paths:
+          /process-transcribed-text:
+            post:
+              parameters:
+                - name: "x-api-key"
+                  in: "header"
+                  required: true
+                  type: "string"
+              responses:
+                "200":
+                  description: "Success"
 Parameters:
   APIKey:
     Type: String
