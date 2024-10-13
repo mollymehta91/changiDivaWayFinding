@@ -107,11 +107,11 @@ jobs:
         run: |
           sam deploy --template-file template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api \
           --parameter-overrides \
-          API_KEY=${{ secrets.API_KEY }} \
-          ASSISTANT_ID=${{ secrets.ASSISTANT_ID }} \
-          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
-          OPENAI_API_URL=${{ secrets.OPENAI_API_URL }} \
-          VECTOR_ID=${{ secrets.VECTOR_ID }}
+          ParameterKey=API_KEY,ParameterValue=${{ secrets.API_KEY }} \
+          ParameterKey=ASSISTANT_ID,ParameterValue=${{ secrets.ASSISTANT_ID }} \
+          ParameterKey=OPENAI_API_KEY,ParameterValue=${{ secrets.OPENAI_API_KEY }} \
+          ParameterKey=OPENAI_API_URL,ParameterValue=${{ secrets.OPENAI_API_URL }} \
+          ParameterKey=VECTOR_ID,ParameterValue=${{ secrets.VECTOR_ID }}
 
       # Step 7: Extract the API Gateway URL
       - name: Extract API Gateway URL
