@@ -1,11 +1,35 @@
 import * as React from "react"
 import Svg, { SvgProps, G, Path, Defs, ClipPath } from "react-native-svg"
-const SpeakerIcon= (props: SvgProps) => (
-  <Svg
+export default function SpeakerIcon ({ size }: any)  {
+
+  if (size == "big") {
+    return (
+      <Svg
+      width={20}
+      height={21}
+      viewBox="0 0 20 21"
+      fill="none"
+    >
+      <G clipPath="url(#clip0_233_2552)">
+        <Path
+          d="M15.665 10.5c0-1.198-.575-2.26-1.462-2.928-.405-.304-.951-.075-1.146.392-.194.468.056.998.373 1.394.25.313.4.712.4 1.146 0 .435-.151.834-.404 1.15-.317.392-.565.92-.37 1.386.195.469.744.697 1.15.39a3.669 3.669 0 001.46-2.93zm-.024-6.363c-.44-.251-.98-.025-1.175.442-.194.468.032.998.46 1.268A5.49 5.49 0 0117.5 10.5a5.484 5.484 0 01-2.573 4.653c-.429.27-.655.8-.46 1.268.194.467.735.693 1.174.442a7.322 7.322 0 003.69-6.363c0-2.724-1.484-5.1-3.69-6.363zM2 5.915a1 1 0 00-1 1v7.166a1 1 0 001 1h2.25a1 1 0 01.708.293l4.415 4.417c.63.63 1.708.185 1.708-.706V1.915c0-.892-1.078-1.338-1.708-.708L4.958 5.622a1 1 0 01-.707.293H2z"
+          fill="#7A35B0"
+        />
+      </G>
+      <Defs>
+        <ClipPath id="clip0_233_2552">
+          <Path fill="#fff" transform="translate(0 .5)" d="M0 0H20V20H0z" />
+        </ClipPath>
+      </Defs>
+    </Svg>
+    )
+  }
+
+  return (
+    <Svg
     width={8}
     height={8}
     fill="none"
-    {...props}
   >
     <G clipPath="url(#a)">
       <Path
@@ -19,5 +43,5 @@ const SpeakerIcon= (props: SvgProps) => (
       </ClipPath>
     </Defs>
   </Svg>
-)
-export default SpeakerIcon
+  )
+}

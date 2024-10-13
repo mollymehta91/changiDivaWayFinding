@@ -24,7 +24,7 @@ const useAudioRecording = () => {
     const [directions, setDirections] = useState<any[]>([]); // Array of directions
     const [from, setFrom] = useState<string>(''); // Starting location
     const [to, setTo] = useState<string>(''); // Destination location
-    const [instructions, setInstructions] = useState<{ text: string; direction: string }[]>([]); // List of instructions
+    const [instructions, setInstructions] = useState<{ text: string; direction: string;  mins: string }[]>([]); // List of instructions
     const Logger = LOGGER(); // Logger instance
 
     /**
@@ -134,19 +134,22 @@ const useAudioRecording = () => {
             if (response.data.isSucceed) {
                 if (response.data.directions && response.data.directions.length > 0) {
                     const selectedDirection = response.data.directions[currentDirectionIndex]; // Get the current direction
+                    selectedDirection.isSucceed = response.data.isSucceed;
+                    
                     setIsSucceed(selectedDirection.isSucceed);
                     setDirections(selectedDirection.directions);
-
                     // Set the from, to, mins and instructions based on the current direction
                     setFrom(selectedDirection.from);
                     setTo(selectedDirection.to);
                     setInstructions(selectedDirection.instructions);
                     setResponseMessage(null); // Clear any previous error messages
                 } else {
-                    setResponseMessage(response.data.message); // Set message if no directions found
+                    setIsSucceed(response.data.isSucceed);
+                    setResponseMessage(response.data.error); // Set message if no directions found
                 }
             } else {
-                setResponseMessage(response.data.message); // Set error message
+                setIsSucceed(response.data.isSucceed);
+                setResponseMessage(response.data.error); // Set error message
             }
         } catch (error: any) {
             setIsSucceed(false);

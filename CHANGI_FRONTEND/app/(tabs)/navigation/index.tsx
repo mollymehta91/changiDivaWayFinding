@@ -1,12 +1,11 @@
 import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
-import SideNavigationList from '@/components/navigation/SideNavigationList';
 import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
 import React, { useState } from 'react';
 import { Image } from 'expo-image';
-import Cross from '@/icons/CrossIcon';
-import SideNavigation, { SideNavigationHeader } from '@/components/navigation/SideNavigation';
+import SideNavigation from '@/components/side-navigation/SideNavigation';
+import SideNavigationHeader from '@/components/side-navigation/SideNavigationHead';
 import { WebView } from 'react-native-webview';
 
 export default function NavigationScreen() {
@@ -35,13 +34,34 @@ export default function NavigationScreen() {
   //   setMessageModalVisible(true);
   // }
 
+  // console.log(isSucceed);
+  // console.log('Hi: ', instructions)
+
+  const runFirst = `
+  document.querySelector('.camap-search-box').outerHTML = "";
+  document.querySelector('.navigate').outerHTML = "";
+  document.querySelector('.share-icon').outerHTML = "";
+
+  const style = document.createElement('style');
+  style.innerHTML = '.cb-d-md-inline-flex { display: flex !important; flex-direction: column; gap: 10px; } ';
+  style.innerHTML += '#terminals-list .camap-terminal-icon { margin: 0 !important; } ';
+  style.innerHTML += '.camap-navigation-control { position: static !important; justify-content: flex-start !important; } ';
+  style.innerHTML += '#terminals-list { margin-top: 30px !important; } ';
+  style.innerHTML += '.camap-terminal-icon .icon { width: 100px !important; } ';
+  style.innerHTML += '.changi-map { top: 0px !important; } ';
+  document.head.appendChild(style);
+
+  true; // note: this is required, or you'll sometimes get silent failures
+  `
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-      <WebView
-        style={{ flex: 1 }}
-        source={{ uri: 'https://www.changiairport.com/en/maps.html#t1.l2/103.99034656584263/1.3623674000421175' }}
-      />
+        <WebView
+          style={{ flex: 1 }}
+          source={{ uri: 'https://www.changiairport.com/en/maps.html#t1.l2/103.99034656584263/1.3623674000421175' }}
+          onMessage={(event) => {}}
+          injectedJavaScript={runFirst}
+        />
         <AudioRecorderButton 
           recording={recording}
           isLoading={isLoading}
@@ -50,9 +70,21 @@ export default function NavigationScreen() {
         />
       </View>
 
-      {/* <SideNavigation data={data.instructions} from={data.from} to={data.to} /> */}
+      <SideNavigation 
+      isRecording={recording}
+      data={{
+        isSucceed: isSucceed,
+        error: responseMessage,
+        message: {
+          from: from,
+          to: to,
+          totalDuration: instructions.reduce((total, instruction) => total + parseInt(instruction.mins), 0),
+          instructions: instructions
+        }
+      }}
+      />
 
-      {
+      {/* {
       recording ? (<SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />)  :
       instructions && instructions.length > 0 ? (
         <SideNavigation 
@@ -62,7 +94,21 @@ export default function NavigationScreen() {
         />
       ) : (
         <SideNavigationHeader subtitle={"Talk to the mic for directions."} title={"Where to?"} />
-      )}
+      )} */}
+
+      {/* <SideNavigation 
+        isRecording={recording}
+        data={{
+          isSucceed: isSucceed,
+          error: responseMessage,
+          message: {
+            from: from,
+            to: to,
+            totalDuration: instructions.reduce((total, instruction) => total + parseInt(instruction.mins), 0),
+            instructions: instructions
+          }
+        }}
+      /> */}
 
 
       {/* Modal for message */}
@@ -113,11 +159,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    
     // backgroundColor: 'grey',
   },
   mapContainer: {
     flex: 1,
-
     // justifyContent: 'flex-start',
     // backgroundColor: 'grey',
   },
