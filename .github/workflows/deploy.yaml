@@ -105,7 +105,13 @@ jobs:
       # Step 6: Deploy the Lambda and API Gateway
       - name: Deploy Lambda and API Gateway
         run: |
-          sam deploy --template-file template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api
+          sam deploy --template-file template.yaml --no-confirm-changeset --capabilities CAPABILITY_IAM --stack-name flask-lambda-api \
+          --parameter-overrides \
+          API_KEY=${{ secrets.API_KEY }} \
+          ASSISTANT_ID=${{ secrets.ASSISTANT_ID }} \
+          OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+          OPENAI_API_URL=${{ secrets.OPENAI_API_URL }} \
+          VECTOR_ID=${{ secrets.VECTOR_ID }}
 
       # Step 7: Extract the API Gateway URL
       - name: Extract API Gateway URL
