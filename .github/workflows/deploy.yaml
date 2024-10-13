@@ -3,13 +3,7 @@ name: Lambda and API Gateway Deployment with Tests
 on:
   push:
     branches:
-      - test   # Trigger deployment on push to the main branch
-  workflow_dispatch:
-    inputs:
-      stage:
-        description: 'Deployment Stage'
-        required: true
-        default: 'prod'
+      - main   # Trigger deployment on push to the main branch
 
 jobs:
   # Job for running unit, security, and performance tests before deployment
@@ -85,7 +79,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install awscli -y
           pip install aws-sam-cli
+            
+      # Set the deployment stage based on the branch
+      - name: Set Stage
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "STAGE=prod" >> $GITHUB_ENV
+          elif [[ "${{ github.ref }}" == "refs/heads/test" ]]; then
+            echo "STAGE=staging" >> $GITHUB_ENV
+          else
+            echo "STAGE=dev" >> $GITHUB_ENV
 
+      # Configure AWS credentials
       - name: Configure AWS credentials
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -118,7 +123,7 @@ jobs:
             OpenAIKey=${{ secrets.OPENAI_API_KEY }} \
             OpenAIURL=${{ secrets.OPENAI_API_URL }} \
             VectorID=${{ secrets.VECTOR_ID }} \
-            StageName=${{ github.event.inputs.stage }}
+            StageName=${{ env.STAGE }}
 
       # Step 7: Extract the API Gateway URL
       - name: Extract API Gateway URL
