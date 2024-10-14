@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Audio } from 'expo-av';
 import axios from 'axios';
 import { OPENAI, FORM_DATA, RECORDING, DIRECTION } from '@/constants/enum';
 import LOGGER from '@/utils/Logger';
-import { Directions } from 'react-native-gesture-handler';
 
 /**
  * Custom hook for handling audio recording and processing.
@@ -45,7 +44,7 @@ const useAudioRecording = () => {
             Logger.INFO('Recording started');
         } catch (err: any) {
             setIsSucceed(false);
-            setResponseMessage(`Failed to start recording: ${err.message}`); // Set error message
+            setResponseMessage(`Error occured. Please try again.`); // Set error message
         }
     };
 
@@ -64,7 +63,7 @@ const useAudioRecording = () => {
                 await uploadAudio(uri); // Upload the audio
             } else {
                 Logger.ERROR('Recording URI is null', null, true);
-                setResponseMessage('Failed to Transcript: Failed to get the audio URI.'); // Set error message
+                setResponseMessage('Error occured. Please try again.'); // Set error message
             }
             setRecording(undefined); // Reset recording state
         }
@@ -101,7 +100,7 @@ const useAudioRecording = () => {
             await sendTranscribedText(JSON.stringify(response.data.text)); // Send transcribed text for further processing
         } catch (error: any) {
             setIsSucceed(false);
-            setResponseMessage(`Failed to upload: ${error.response?.data || error.message}`); // Set error message
+            setResponseMessage(`Error occured. Please try again.`); // Set error message
         } finally {
             setIsLoading(false); // Reset loading state
         }
@@ -145,15 +144,15 @@ const useAudioRecording = () => {
                     setResponseMessage(null); // Clear any previous error messages
                 } else {
                     setIsSucceed(response.data.isSucceed);
-                    setResponseMessage(response.data.error); // Set message if no directions found
+                    setResponseMessage(response.data.message); // Set message if no directions found
                 }
             } else {
                 setIsSucceed(response.data.isSucceed);
-                setResponseMessage(response.data.error); // Set error message
+                setResponseMessage(response.data.message); // Set error message
             }
         } catch (error: any) {
             setIsSucceed(false);
-            setResponseMessage(`Failed to Transcript: ${error.response?.data || error.message || error}`); // Set error message
+            setResponseMessage(`Error occured. Please try again.`); // Set error message
         }
     };
 

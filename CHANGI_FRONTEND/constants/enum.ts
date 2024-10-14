@@ -22,3 +22,7 @@ export const OPENAI = {
     AUTHORIZATION: `Bearer ${process.env.EXPO_PUBLIC_OPENAI_API_KEY}`,
     CONTENT_TYPE: 'multipart/form-data',
 }
+
+export const MAP = {
+    URL: 'https://www.changiairport.com/en/maps.html#t1.l2/103.99034656584263/1.3623674000421175'
+}
