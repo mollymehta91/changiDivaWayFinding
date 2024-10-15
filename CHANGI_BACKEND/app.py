@@ -53,15 +53,19 @@ def process_transcribed_text():
  
     # Return the response as a JSON
     return jsonify(response_content)
- 
+
 # AWS Lambda handler
 def lambda_handler(event, context):
     # Convert Flask app to be compatible with AWS Lambda using aws-wsgi
     return wsgi_response(app, event, context)
 
-
 # The code below is used to test it locally
 """
 if __name__ == '__main__':
     app.run(debug=True)
+"""
+
+"""
+Using x-api-key for authentication as there is only one key. 
+Planning to implement JWT tokens in the future for user-specific access, fine-grained permissions and manage sessions with tokens that expire.
 """

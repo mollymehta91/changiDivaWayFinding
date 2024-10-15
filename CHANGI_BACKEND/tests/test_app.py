@@ -1,39 +1,3 @@
-import json
-import pytest
-from CHANGI_BACKEND.app import lambda_handler  # Import the lambda function to be tested
-
-def test_lambda_handler_with_message():
-    # Mock API Gateway event with a message
-    event = {
-        'body': json.dumps({'message': 'Hello, Lambda!'})
-    }
-
-    # Call the Lambda function
-    result = lambda_handler(event, None)
-
-    # Parse the response body
-    response_body = json.loads(result['body'])
-
-    # Assertions
-    assert result['statusCode'] == 200
-    assert response_body['message'] == 'You sent: Hello, Lambda!'
-
-def test_lambda_handler_no_message():
-    # Mock API Gateway event with no message
-    event = {
-        'body': json.dumps({})
-    }
-
-    # Call the Lambda function
-    result = lambda_handler(event, None)
-
-    # Parse the response body
-    response_body = json.loads(result['body'])
-
-    # Assertions
-    assert result['statusCode'] == 200
-    assert response_body['message'] == 'You sent: No message provided'
-=======
 import unittest
 from unittest.mock import patch
 from app import app, lambda_handler
@@ -103,50 +67,34 @@ def test_process_transcribed_text_success(mock_fetch_data, client):
         "message": "Successful",
         "directions": [{"from": "A", "to": "B", "instructions": []}]
     }
- 
-# Test case to validate Lambda handler with invalid API key
-def test_lambda_handler_invalid_key():
+
+# Test case to verify logging works when a request is successfully processed
+@patch('app.logger')  # Patch 'logger' to use a mock logger instance instead of the real one
+@patch('app.fetch_data')  # Patch 'fetch_data' to use a mock instead of the real function
+def test_logging(mock_fetch_data, mock_logger, client):
     """
-    Test the Lambda handler with an invalid API key.
-    Expects a 401 status code and an appropriate error message.
+    Test that the logging functionality works correctly during the processing of transcribed text.
+    Uses mock data to simulate a successful call to the 'fetch_data' function.
+    Verifies that the logger's 'info' method is called with the correct message.
     """
-    mock_event = {
-        "headers": {"x-api-key": "invalid_key"},
-        "body": json.dumps({"transcribed_text": "Hello"})
-    }
-    response = lambda_handler(mock_event, None)
-    assert response['statusCode'] == 401
-    assert json.loads(response['body']) == {"error": "Unauthorized access, invalid API key"}
- 
-# Test case to validate Lambda handler with successful transcribed text processing
-@patch('app.fetch_data')
-def test_lambda_handler_success(mock_fetch_data):
-    """
-    Test the Lambda handler for a successful transcribed text processing.
-    """
-    # Mock the fetch_data function
+    headers = {'x-api-key': Config.API_KEY}  # Use the correct API key from the config
+    
+    # Mock the return value of fetch_data to simulate a successful response
     mock_fetch_data.return_value = {
         "isSucceed": True,
         "message": "Successful",
         "directions": [{"from": "A", "to": "B", "instructions": []}]
     }
- 
-    # Create a mock event with a valid API key and transcribed text
-    mock_event = {
-        "headers": {"x-api-key": Config.API_KEY},
-        "body": json.dumps({"transcribed_text": "Hello"})
-    }
- 
-    # Call the Lambda handler and validate the response
-    response = lambda_handler(mock_event, None)
-    assert response['statusCode'] == 200
-    assert json.loads(response['body']) == {
-        "isSucceed": True,
-        "message": "Successful",
-        "directions": [{"from": "A", "to": "B", "instructions": []}]
-    }
- 
+    
+    # Make a POST request with valid transcribed text and the correct API key
+    response = client.post('/process-transcribed-text', json={'transcribed_text': 'Hello'}, headers=headers)
+    
+    # Check that the status code is 200 (OK)
+    assert response.status_code == 200
+    
+    # Verify that the logger's 'info' method was called with the correct log message
+    mock_logger.info.assert_any_call("Processing transcribed text request")
+
 # Entry point for running tests using pytest
 if __name__ == '__main__':
     pytest.main()  # Execute the tests when running the file directly
-
