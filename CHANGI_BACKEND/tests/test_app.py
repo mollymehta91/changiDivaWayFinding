@@ -1,3 +1,43 @@
+"""
+import json
+import pytest
+from CHANGI_BACKEND.app import lambda_handler  # Import the lambda function to be tested
+
+def test_lambda_handler_with_message():
+    # Mock API Gateway event with a message
+    event = {
+        'body': json.dumps({'message': 'Hello, Lambda!'})
+    }
+
+    # Call the Lambda function
+    result = lambda_handler(event, None)
+
+    # Parse the response body
+    response_body = json.loads(result['body'])
+
+    # Assertions
+    assert result['statusCode'] == 200
+    assert response_body['message'] == 'You sent: Hello, Lambda!'
+
+def test_lambda_handler_no_message():
+    # Mock API Gateway event with no message
+    event = {
+        'body': json.dumps({})
+    }
+
+    # Call the Lambda function
+    result = lambda_handler(event, None)
+
+    # Parse the response body
+    response_body = json.loads(result['body'])
+
+    # Assertions
+    assert result['statusCode'] == 200
+    assert response_body['message'] == 'You sent: No message provided'
+"""
+
+
+
 import unittest
 from unittest.mock import patch
 from app import app, lambda_handler
