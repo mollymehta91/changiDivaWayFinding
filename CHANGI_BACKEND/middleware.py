@@ -33,3 +33,8 @@ class APIKeyMiddleware:
             logger.warning("Invalid API key")
             return jsonify({"error": "Unauthorized access, invalid API key"}), 401      # Return 401 error if invalid
         return None     # Return None if the API key is valid
+    
+    """
+    Currently using Flask middleware for request handling. 
+    Planning to migrate to FastAPI in the future for improved performance and async support.
+    """
