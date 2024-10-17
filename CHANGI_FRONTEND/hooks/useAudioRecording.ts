@@ -168,7 +168,7 @@ const useAudioRecording = () => {
             }
 
 
-            if (response.data.message == "Please enter the correct destination.") {
+            if (response.data.message == "These are not valid points in the map provided. Please select valid points.") {
               setResponseMessage("It looks like the landmarks you provided don’t exist in Changi. Could you please share the correct landmarks with us? Thank you!");
             }
 
