@@ -135,6 +135,7 @@ jobs:
             --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" \
             --output text)
           echo "::set-output name=api_url::$API_URL"
+          echo "API Gateway URL: $API_URL"
       
   # Performance Testing Job using Jmeter
   # performance:
