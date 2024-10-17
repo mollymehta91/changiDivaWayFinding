@@ -6,7 +6,7 @@ This repository uses GitHub Actions to automate testing and deployment of an AWS
 
 ### Workflow Trigger
 The deployment workflow is triggered automatically when code is pushed to the `main` branch.
-workflow file located in ../.github/workflows/deploy.yaml
+
 ### Jobs in the Workflow
 
 #### 1. **Test Job**
