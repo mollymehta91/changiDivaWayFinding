@@ -6,7 +6,7 @@ This repository uses GitHub Actions to automate testing and deployment of an AWS
 
 ### Workflow Trigger
 The deployment workflow is triggered automatically when code is pushed to the `main` branch.
-
+workflow file located in ../.github/workflows/deploy.yaml
 ### Jobs in the Workflow
 
 #### 1. **Test Job**
@@ -18,7 +18,7 @@ The deployment workflow is triggered automatically when code is pushed to the `m
      4. Run unit tests using `pytest`.
      5. Upload unit test results as an artifact.
      6. Install `bandit` for security testing. (for documentation, please visit https://bandit.readthedocs.io/en/latest/plugins/index.html)
-     7. (Optional) Run `bandit` security scan and upload the report.
+     7. Run `bandit` security scan and upload the report.
 
 #### 2. **Build and Deploy Job**
    - **Runs on:** `ubuntu-latest`
