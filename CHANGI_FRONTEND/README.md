@@ -1,50 +1,63 @@
-# Welcome to your Expo app 👋
+# Changi DIVA Frontend Setup 
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Welcome to the Changi DIVA application! This innovative tool helps users navigate Changi Airport using voice commands. Simply provide “from…to…” instructions, and the app will guide you with precise directions tailored to your needs.
 
-## Get started
+## Tech Stack 
+ 
+- **Frontend** : Expo React Native
+ 
+- **Backend** : Integrates with OpenAI, AWS, and Python
 
-1. Install dependencies
+## Setup Instructions 
 
-   ```bash
-   npm install
-   ```
+### Prerequisites 
+Before you begin, you need to have **Node.js**  and **npm**  installed on your machine. Follow the steps below to install them:
+#### Installing Node.js and npm 
+ 
+1. **Download Node.js** : 
+  - Go to the [Node.js official website](https://nodejs.org/) .
 
-2. Start the app
+  - Download the latest LTS (Long Term Support) version for your operating system.
+ 
+2. **Install Node.js** :
+  - Run the installer and follow the prompts. This will install both Node.js and npm (Node Package Manager).
+ 
+3. **Verify Installation** :
+  - Open your terminal (Command Prompt, PowerShell, or Terminal).
 
-   ```bash
-    npx expo start
-   ```
+  - Run the following commands to verify that Node.js and npm are installed correctly:
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
 
 ```bash
-npm run reset-project
+node -v
+npm -v
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+You should see version numbers for both commands if the installation was successful.
 
-## Learn more
+### Get Started 
+ 
+1. **Install Dependencies** After installing Node.js and npm, navigate to the `CHANGI_FRONTEND` directory and run:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Start the App 
 
-## Join the community
+To launch the application, use the following command:
 
-Join our community of developers creating universal apps.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx expo start
+```
+
+### Configure Environment Variables 
+Before starting the app, you need to create a `.env` file in the root of the `CHANGI_FRONTEND` folder. This file should include the following environment variables: 
+- `EXPO_PUBLIC_OPENAI_API_URL`: The OpenAI API URL for transcribing voice input from speech to text and converting text back to speech.
+ 
+- `EXPO_PUBLIC_OPENAI_API_KEY`: Your OpenAI API key for handling voice transcription.
+ 
+- `EXPO_PUBLIC_CHANGI_BACKEND_URL`: The URL for your AWS backend, used to retrieve directions based on user voice instructions.
+ 
+- `EXPO_PUBLIC_CHANGI_BACKEND_API_KEY`: The API key for your AWS backend, required for accessing direction services.
