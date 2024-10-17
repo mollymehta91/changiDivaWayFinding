@@ -155,15 +155,8 @@ npm -v
 ```bash
 npm install
 ```
- 
-2. **Start the App**  
-  - To launch the application, use the following command:
 
-```bash
-npx expo start
-```
- 
-3. **Configure Environment Variables**  
+2. **Configure Environment Variables**  
   - Before starting the app, create a `.env` file in the root of the `CHANGI_FRONTEND` folder. This file should include the following environment variables: 
     - `EXPO_PUBLIC_OPENAI_API_URL`: The OpenAI API URL for transcribing voice input from speech to text and converting text back to speech.
  
@@ -172,6 +165,13 @@ npx expo start
     - `EXPO_PUBLIC_CHANGI_BACKEND_URL`: The URL for your AWS backend, used to retrieve directions based on user voice instructions.
  
     - `EXPO_PUBLIC_CHANGI_BACKEND_API_KEY`: The API key for your AWS backend, required for accessing direction services.
+ 
+3. **Start the App**  
+  - To launch the application, use the following command:
+
+```bash
+npx expo start
+```
 
 ---
 
