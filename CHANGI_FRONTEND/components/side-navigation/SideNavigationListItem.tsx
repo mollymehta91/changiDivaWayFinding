@@ -4,6 +4,7 @@ import UpArrowIcon from "@/icons/UpArrowIcon";
 import { StyleSheet, View, Text } from "react-native";
 import VoiceButton from "../button/VoiceButton";
 import colors from "@/constants/colors";
+import React from "react";
 
 // Type definition for the props of SideNavigationListItem
 type NavigationContentProps = {

@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import fonts from '@/constants/fonts';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React from "react";
 
 /**
  * Component: RootLayout

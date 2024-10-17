@@ -6,6 +6,7 @@ import ChangiLogoIcon from "@/icons/ChangiLogoIcon";
 import colors from "@/constants/colors";
 import NavigationButton from "../button/NavigationButton";
 import AllVoiceButton from "../button/AllVoiceButton";
+import React from "react";
 
 /**
  * Component: SideNavigationContainer
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingTop: 20,
         paddingBottom: 0,
-        borderBottomWidth: 0.5,
-        borderColor: colors.primary.darkGrey,
+        // borderBottomWidth: 0.5,
+        // borderColor: colors.primary.darkGrey,
     },
     content: {
         flexDirection: 'column',

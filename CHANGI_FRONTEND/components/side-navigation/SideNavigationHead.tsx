@@ -2,6 +2,7 @@ import { StyleSheet, View, Text } from "react-native";
 import FromToDotTrailsIcon from "@/icons/FromToDotTrailsIcon";
 import WalkingManIcon from "@/icons/WalkingManIcon";
 import colors from "@/constants/colors";
+import React from "react";
 
 const LocationContainer = ({locationName, disclaimer}: any) => {
 

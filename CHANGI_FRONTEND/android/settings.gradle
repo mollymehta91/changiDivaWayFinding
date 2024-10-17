@@ -44,7 +44,7 @@ if (getRNMinorVersion() >= 75) {
   }
 }
 
-rootProject.name = 'CHANGI_FRONTEND'
+rootProject.name = 'CHANGI_DIVA'
 
 dependencyResolutionManagement {
   versionCatalogs {

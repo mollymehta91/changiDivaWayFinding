@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native";
 import { MAP } from "@/constants/enum";
 import { useState } from "react";
 import colors from "@/constants/colors";
+import React from "react";
 
 /**
  * Component: Map
@@ -111,7 +112,7 @@ const loadingStyles = StyleSheet.create({
 const errorStyles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
@@ -123,5 +124,6 @@ const errorStyles = StyleSheet.create({
         color: colors.primary.purple,
         fontSize: 20,
         width: 260,
+        marginLeft: 270,
     }
 });
