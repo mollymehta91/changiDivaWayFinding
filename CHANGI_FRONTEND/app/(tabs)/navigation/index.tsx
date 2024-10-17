@@ -4,7 +4,8 @@ import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
 import React from 'react';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
-import Map from '@/components/Map';
+import MapView from '@/components/MapView';
+import colors from '@/constants/colors';
 
 
 export default function NavigationScreen() {
@@ -17,29 +18,37 @@ export default function NavigationScreen() {
     from,
     instructions,
     responseMessage,
+    originDisclaimer,
+    destinationDisclaimer,
     startRecording,
     stopRecording,
   } = useAudioRecording();
 
   return (
     <View style={styles.container}>
-      <Map>
+      <MapView>
         <AudioRecorderButton 
         recording={recording}
         isLoading={isLoading}
         startRecording={startRecording}
         stopRecording={stopRecording}
         />
-      </Map>
+      </MapView>
 
       <SideNavigation 
-        isRecording={recording}
+        isRecording={recording != undefined ? true : false}
         data={{
           isSucceed: isSucceed,
           errorMessage: responseMessage,
           directions: {
-            from: from,
-            to: to,
+            from: {
+              locationName: from,
+              disclaimer: originDisclaimer
+            },
+            to: {
+              locationName: to,
+              disclaimer: destinationDisclaimer
+            },
             totalDuration: instructions.reduce((total, instruction) => total + parseInt(instruction.mins), 0),
             instructions: instructions
           }
@@ -78,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   closeButtonText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 16,
   },
 });

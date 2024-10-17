@@ -24,6 +24,8 @@ const useAudioRecording = () => {
     const [from, setFrom] = useState<string>(''); // Starting location
     const [to, setTo] = useState<string>(''); // Destination location
     const [instructions, setInstructions] = useState<{ text: string; direction: string;  mins: string }[]>([]); // List of instructions
+    const [originDisclaimer, setOriginDisclaimer] = useState<string>(''); // Origin disclaimer
+    const [destinationDisclaimer, setDestinationDisclaimer] = useState<string>(''); // Destination disclaimer
     const Logger = LOGGER(); // Logger instance
 
     /**
@@ -141,6 +143,20 @@ const useAudioRecording = () => {
                     setFrom(selectedDirection.from);
                     setTo(selectedDirection.to);
                     setInstructions(selectedDirection.instructions);
+                    
+                    if (selectedDirection.from == "Sunglass Hut") {
+                      setOriginDisclaimer("Sunglass Hut is set as the default current location.");
+                    } else {
+                      setOriginDisclaimer('');
+                    }
+
+                    if (selectedDirection.to == "Gate D49") {
+                      setDestinationDisclaimer("Gate D49 is set as the default end location.");
+                    } else {
+                      setDestinationDisclaimer('');
+                    }
+                    
+
                     setResponseMessage(null); // Clear any previous error messages
                 } else {
                     setIsSucceed(response.data.isSucceed);
@@ -150,9 +166,15 @@ const useAudioRecording = () => {
                 setIsSucceed(response.data.isSucceed);
                 setResponseMessage(response.data.message); // Set error message
             }
+
+
+            if (response.data.message == "Please enter the correct destination.") {
+              setResponseMessage("It looks like the landmarks you provided don’t exist in Changi. Could you please share the correct landmarks with us? Thank you!");
+            }
+
         } catch (error: any) {
             setIsSucceed(false);
-            setResponseMessage(`Error occured. Please try again.`); // Set error message
+            setResponseMessage(`An error has occurred. Please try again.`); // Set error message
         }
     };
 
@@ -176,6 +198,8 @@ const useAudioRecording = () => {
         from,
         to,
         instructions,
+        originDisclaimer,
+        destinationDisclaimer,
         startRecording,
         stopRecording,
     };

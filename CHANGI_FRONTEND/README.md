@@ -1,50 +1,32 @@
-# Welcome to your Expo app 👋
+# Changi DIVA Frontend Setup
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Changi DIVA is an application that helps users navigate around Changi Airport with the assistance of voice commands. Users can give “from…to…” instructions, and the app will provide directions based on their needs.
 
-## Get started
+This app utilizes the Expo React Native framework for the frontend and integrates OpenAI, AWS, and Python for the backend.
 
-1. Install dependencies
+## Setup Instructions
 
-   ```bash
-   npm install
-   ```
+### Get Started
 
-2. Start the app
+1. **Install dependencies**
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Start the app
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Before you can start your app, create a `.env` file in the root of the CHANGI_FRONTEND folder with the following necessary environment variables:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `EXPO_PUBLIC_OPENAI_API_URL`: Open API URL to transcribe the voice over from speech to text and text to speech.
 
-## Join the community
+- `EXPO_PUBLIC_OPENAI_API_KEY`: Open API key to transcribe the voice over from speech to text and text to speech.
 
-Join our community of developers creating universal apps.
+- `EXPO_PUBLIC_CHANGI_BACKEND_URL`: The url path for your AWS backend in order to get directions from the instructions given by the user via voice over
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `EXPO_PUBLIC_CHANGI_BACKEND_API_KEY`: The key for your AWS backend in order to get directions from the instructions given by the user via voice over
