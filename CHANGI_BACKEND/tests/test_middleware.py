@@ -52,7 +52,66 @@ def test_missing_api_key(app):
         response, status_code = result  # Unpack the response and status code
         assert status_code == 401  # Check that the status code is 401
         assert response.get_json() == {"error": "Unauthorized access, invalid API key"}  # Verify the error message
- 
+
+# Test case to validate behavior when the API key header is present but has a None value
+def test_api_key_none(app):
+    """
+    Test middleware with a None API key value.
+    Expects a 401 status code and an appropriate error message.
+    """
+    middleware = APIKeyMiddleware(Config.API_KEY)
+    with app.test_request_context(headers={"x-api-key": None}):
+        result = middleware.check_api_key()
+        assert isinstance(result, tuple), f"Expected a tuple, got {type(result)}"
+        response, status_code = result
+        assert status_code == 401
+        assert response.get_json() == {"error": "Unauthorized access, invalid API key"}
+
+# Test case to validate behavior when the API key header is present but empty
+def test_empty_api_key(app):
+    """
+    Test middleware with an empty API key value.
+    Expects a 401 status code and an appropriate error message.
+    """
+    middleware = APIKeyMiddleware(Config.API_KEY)
+    with app.test_request_context(headers={"x-api-key": ""}):
+        result = middleware.check_api_key()
+        assert isinstance(result, tuple), f"Expected a tuple, got {type(result)}"
+        response, status_code = result
+        assert status_code == 401
+        assert response.get_json() == {"error": "Unauthorized access, invalid API key"}
+
+# Test case to validate behavior with a case-sensitive API key
+def test_case_sensitive_api_key(app):
+    """
+    Test middleware with a case-sensitive API key.
+    Expects a 401 status code and an appropriate error message if the case does not match.
+    """
+    middleware = APIKeyMiddleware(Config.API_KEY)
+    with app.test_request_context(headers={"x-api-key": Config.API_KEY.lower()}):  # Passing the API key in lowercase
+        result = middleware.check_api_key()
+        assert isinstance(result, tuple), f"Expected a tuple, got {type(result)}"
+        response, status_code = result
+        assert status_code == 401
+        assert response.get_json() == {"error": "Unauthorized access, invalid API key"}
+
+# Test case to validate behavior when the check_api_key method raises an unexpected exception
+def test_unexpected_exception(app, mocker):
+    """
+    Test middleware behavior if an unexpected exception occurs.
+    Expects a 500 status code and an appropriate error message.
+    """
+    middleware = APIKeyMiddleware(Config.API_KEY)
+
+    # Mock the `request.headers.get` method to raise an exception
+    mocker.patch("flask.request.headers.get", side_effect=Exception("Unexpected error"))
+
+    with app.test_request_context(headers={"x-api-key": Config.API_KEY}):
+        try:
+            middleware.check_api_key()
+        except Exception as e:
+            assert str(e) == "Unexpected error"
+
 # Entry point for running tests using pytest
 if __name__ == '__main__':
     pytest.main()  # Execute the tests when running the file directly
