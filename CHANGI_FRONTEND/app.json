@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CHANGI_FRONTEND",
-    "slug": "CHANGI_FRONTEND",
+    "name": "CHANGI_DIVA",
+    "slug": "CHANGI_DIVA",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",

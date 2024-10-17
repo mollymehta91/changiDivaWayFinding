@@ -114,6 +114,8 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'Lato-Bold',
         fontSize: 20,
+        flexWrap: 'wrap',
+        width: 200,
         color: colors.black,
     },
     subtitle: {

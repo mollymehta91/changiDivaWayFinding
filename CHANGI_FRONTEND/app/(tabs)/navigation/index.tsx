@@ -1,4 +1,14 @@
-import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
+/**
+ * Component: NavigationScreen
+ * 
+ * This component represents the main screen for navigation within the application. 
+ * It includes functionality for recording audio, displaying a map view, and showing 
+ * navigation instructions. The component integrates audio recording capabilities 
+ * and a side navigation panel to guide the user through the navigation process.
+ * 
+ * @returns {JSX.Element} The rendered navigation screen
+ */
+import { StyleSheet, View } from 'react-native';
 import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
@@ -7,12 +17,14 @@ import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MapView from '@/components/MapView';
 import colors from '@/constants/colors';
 
-
 export default function NavigationScreen() {
-
+  // State to manage whether the screen is in 'home' state
   const [isHome, setIsHome] = useState(true);
 
+  // Extracting direction data from response
   const data = response["directions"][0];
+
+  // Audio recording hooks for capturing audio inputs
   const {
     recording,
     isLoading,
@@ -29,17 +41,19 @@ export default function NavigationScreen() {
 
   return (
     <View style={styles.container}>
+      {/* MapView component wrapping the AudioRecorderButton */}
       <MapView>
         <AudioRecorderButton 
-        recording={recording}
-        isLoading={isLoading}
-        startRecording={startRecording}
-        stopRecording={stopRecording}
+          recording={recording}
+          isLoading={isLoading}
+          startRecording={startRecording}
+          stopRecording={stopRecording}
         />
       </MapView>
 
+      {/* Side navigation component displaying navigation details */}
       <SideNavigation 
-        isRecording={recording != undefined ? true : false}
+        isRecording={recording != undefined}
         isHome={isHome}
         data={{
           isSucceed: isSucceed,
@@ -53,7 +67,8 @@ export default function NavigationScreen() {
               locationName: to,
               disclaimer: destinationDisclaimer
             },
-            totalDuration: instructions.reduce((total, instruction) => total + parseInt(instruction.mins), 0),
+            totalDuration: instructions.reduce(
+              (total, instruction) => total + parseInt(instruction.mins), 0),
             instructions: instructions
           }
         }}
@@ -62,6 +77,7 @@ export default function NavigationScreen() {
   );
 };
 
+// Styles for the NavigationScreen component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -95,3 +111,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+

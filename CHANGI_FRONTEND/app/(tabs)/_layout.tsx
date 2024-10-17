@@ -1,29 +1,27 @@
-import { Stack, Tabs } from 'expo-router';
+import { Stack } from "expo-router";
 
-export default function TabsLayout() {
+/**
+ * Component: TabsLayout
+ * 
+ * This component defines the layout for the tabs stack.
+ * It includes a Stack with screen options to hide the header for all routes.
+ * 
+ * @returns {JSX.Element} The rendered tabs layout
+ */
+export default function TabsLayout(): JSX.Element {
   return (
     <Stack
-    screenOptions={{
-        // Hide the header for all other routes.
+      // Hide the header for all other routes.
+      screenOptions={{
         headerShown: false,
       }}
     >
-        <Stack.Screen name="index" 
+      <Stack.Screen name="index" 
         options={{ 
-            headerShown: false
-         }} />
+          // Hide the header for the index route.
+          headerShown: false
+        }} 
+      />
     </Stack>
-    // <Tabs
-    // screenOptions={{
-    //     headerShown: false,
-    // }}
-    // >
-    //     <Tabs.Screen redirect 
-    //     name="index"
-    //     options={{
-    //         href: null,
-    //       }}
-    //     />
-    // </Tabs>
   );
-};
+}

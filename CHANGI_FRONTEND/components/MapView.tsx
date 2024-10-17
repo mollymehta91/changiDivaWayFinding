@@ -6,6 +6,16 @@ import { MAP } from "@/constants/enum";
 import { useState } from "react";
 import colors from "@/constants/colors";
 
+/**
+ * Component: Map
+ * 
+ * This component renders a full-screen map view with a loading indicator
+ * and error handling. The map view is rendered using the react-native-webview
+ * library.
+ * 
+ * @returns {JSX.Element} The rendered map view
+ */
+
 export function MapLoading ({error, loading}: any) {
 
     if (!error && loading) {

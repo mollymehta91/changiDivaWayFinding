@@ -178,17 +178,6 @@ const useAudioRecording = () => {
         }
     };
 
-    // Optional: Function to change the current direction if needed
-    // const changeDirection = (index: number) => {
-    //   if (directions[index]) {
-    //     setCurrentDirectionIndex(index);
-    //     const selectedDirection = directions[index];
-    //     setFrom(selectedDirection.from);
-    //     setTo(selectedDirection.to);
-    //     setInstructions(selectedDirection.instructions);
-    //   }
-    // };
-
     return {
         recording,
         permissionResponse,
