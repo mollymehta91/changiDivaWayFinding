@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         justifyContent: 'center',
         paddingHorizontal: 8,
-        paddingTop: 1,
+        paddingTop: 0,
         paddingBottom: 4,
         borderRadius: 4,
-        backgroundColor: colors.primary.darkGrey,
+        backgroundColor: colors.primary.whiteGrey,
     },
     voiceButtonContainer: {
         alignItems: 'center',

@@ -119,7 +119,7 @@ describe('useAudioRecording Hook', () => {
             await result.current.stopRecording();
         });
 
-        expect(result.current.responseMessage).toBe('[Upload failed] An error has occurred. Please try again.');
+        expect(result.current.responseMessage).toBe('An error has occurred. Please try again.');
         expect(result.current.isSucceed).toBe(false);
     });
 

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     navigationContentList: {
         marginTop: 10,
         // height: 320,
-        height: 450,
+        height: 410,
         marginRight: 100,
         flexDirection: 'column',
         width: '100%',

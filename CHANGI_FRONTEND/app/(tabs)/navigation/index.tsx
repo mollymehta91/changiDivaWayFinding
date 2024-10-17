@@ -2,13 +2,16 @@ import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import response from '@/data/response.json';
 import AudioRecorderButton from '@/components/button/AudioRecorderButton';
 import useAudioRecording from '@/hooks/useAudioRecording';
-import React from 'react';
+import React, { useState } from 'react';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MapView from '@/components/MapView';
 import colors from '@/constants/colors';
 
 
 export default function NavigationScreen() {
+
+  const [isHome, setIsHome] = useState(true);
+
   const data = response["directions"][0];
   const {
     recording,
@@ -37,6 +40,7 @@ export default function NavigationScreen() {
 
       <SideNavigation 
         isRecording={recording != undefined ? true : false}
+        isHome={isHome}
         data={{
           isSucceed: isSucceed,
           errorMessage: responseMessage,
