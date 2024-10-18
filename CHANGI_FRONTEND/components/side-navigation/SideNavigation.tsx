@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         width: 450,
         height: '100%',
+        top: 24,
         position: 'absolute',
         left: 830,
         shadowColor: colors.black,

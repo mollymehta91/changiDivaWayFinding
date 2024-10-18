@@ -7,52 +7,52 @@
           {
             "text": "Start at Samsonite.",
             "direction": "straight",
-            "duration": "2 min"
+            "mins": "2"
           },
           {
             "text": "Walk clockwise along the circular path.",
             "direction": "straight",
-            "duration": "1 min"
+            "mins": "1"
           },
           {
             "text": "Pass Tiger Street Lab on your right.",
             "direction": "right",
-            "duration": "2 min"
+            "mins": "2"
           },
           {
             "text": "Continue walking until you reach Lobby H near Peach Garden.",
             "direction": "straight",
-            "duration": "3 min"
+            "mins": "3"
           },
           {
             "text": "From Lobby H, keep walking clockwise and pass by Koi Thé and LeNu.",
             "direction": "straight",
-            "duration": "1 min"
+            "mins": "1"
           },
           {
             "text": "You will then see Jewel Manulife Sky Nets on your left.",
             "direction": "left",
-            "duration": "1 min"
+            "mins": "1"
           },
           {
             "text": "Continue towards Lobby E, passing TAG Heuer and TUDOR.",
             "direction": "straight",
-            "duration": "1 min"
+            "mins": "1"
           },
           {
             "text": "Keep walking past Adidas and AGATHA until you reach Lobby F.",
             "direction": "straight",
-            "duration": "2 min"
+            "mins": "2"
           },
           {
             "text": "From Lobby F, continue walking clockwise, passing Polo Ralph Lauren.",
             "direction": "straight",
-            "duration": "1 min"
+            "mins": "1"
           },
           {
             "text": "Finally, you will reach Oakley, which is near Lobby F.",
             "direction": "straight",
-            "duration": "2 min"
+            "mins": "2"
           }
         ]
       }

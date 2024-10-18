@@ -2,6 +2,7 @@ import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native';
 import SpeakerIcon from '@/icons/SpeakerIcon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import colors from '@/constants/colors';
+import React from 'react';
 
 /**
  * Component: AudioButton

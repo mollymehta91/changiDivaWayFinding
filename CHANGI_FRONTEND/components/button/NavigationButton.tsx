@@ -1,6 +1,7 @@
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SpeakerIcon from '@/icons/SpeakerIcon';
 import colors from '@/constants/colors';
+import React from 'react';
 
 /**
  * Component: ExitNavigationButton

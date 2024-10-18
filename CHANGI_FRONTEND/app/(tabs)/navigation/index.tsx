@@ -16,6 +16,7 @@ import React, { useState } from 'react';
 import SideNavigation from '@/components/side-navigation/SideNavigation';
 import MapView from '@/components/MapView';
 import colors from '@/constants/colors';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function NavigationScreen() {
   // State to manage whether the screen is in 'home' state
@@ -40,40 +41,41 @@ export default function NavigationScreen() {
   } = useAudioRecording();
 
   return (
-    <View style={styles.container}>
-      {/* MapView component wrapping the AudioRecorderButton */}
-      <MapView>
-        <AudioRecorderButton 
-          recording={recording}
-          isLoading={isLoading}
-          startRecording={startRecording}
-          stopRecording={stopRecording}
-        />
-      </MapView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        {/* MapView component wrapping the AudioRecorderButton */}
+        <MapView>
+          <AudioRecorderButton 
+            recording={recording}
+            isLoading={isLoading}
+            startRecording={startRecording}
+            stopRecording={stopRecording}
+          />
+        </MapView>
 
-      {/* Side navigation component displaying navigation details */}
-      <SideNavigation 
-        isRecording={recording != undefined}
-        isHome={isHome}
-        data={{
-          isSucceed: isSucceed,
-          errorMessage: responseMessage,
-          directions: {
-            from: {
-              locationName: from,
-              disclaimer: originDisclaimer
-            },
-            to: {
-              locationName: to,
-              disclaimer: destinationDisclaimer
-            },
-            totalDuration: instructions.reduce(
-              (total, instruction) => total + parseInt(instruction.mins), 0),
-            instructions: instructions
-          }
-        }}
+        {/* Side navigation component displaying navigation details */}
+        <SideNavigation 
+          isRecording={recording != undefined}
+          data={{
+            isSucceed: isSucceed,
+            errorMessage: responseMessage,
+            directions: {
+              from: {
+                locationName: from,
+                disclaimer: originDisclaimer
+              },
+              to: {
+                locationName: to,
+                disclaimer: destinationDisclaimer
+              },
+              totalDuration: instructions.reduce(
+                (total, instruction) => total + parseInt(instruction.mins), 0),
+              instructions: instructions
+            }
+          }}
       />
-    </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

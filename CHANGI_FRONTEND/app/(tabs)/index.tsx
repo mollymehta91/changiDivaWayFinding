@@ -1,4 +1,5 @@
 import { Redirect } from "expo-router";
+import React from "react";
 
 /**
  * This component is the entry point for the application and is responsible for

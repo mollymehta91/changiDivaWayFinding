@@ -112,7 +112,6 @@ const loadingStyles = StyleSheet.create({
 const errorStyles = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
         justifyContent: 'center',
     },
     title: {
