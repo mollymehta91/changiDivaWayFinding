@@ -1,0 +1,2 @@
+WayfinderApp_demo_v2_1_release.apk filter=lfs diff=lfs merge=lfs -text
+WayfinderApp_demo_v2_1_debug.apk filter=lfs diff=lfs merge=lfs -text
